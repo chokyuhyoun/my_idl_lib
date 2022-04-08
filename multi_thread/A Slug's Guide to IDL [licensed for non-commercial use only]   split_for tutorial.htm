@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0063)http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+  <link rel="stylesheet" type="text/css" href="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/packed-m-prod-v78918518.css">
+
+  
+		<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="http://vs1.pbworks.com/shared/statics/ie6-m-prod-v85351277.css" /><![endif]-->
+  <style>  body, body.wikipage, body.has-ws-nav.wikipage, body #ws-nav ul.nav-tabs #ws-nav-wiki.active { background-color:#247EBB ; }  ul#main-tools li a,ul#secondary-tools li a, div#top-content a, #ws-nav ul.nav-tabs #ws-nav-wiki.active a { color:#def ; }  ul#main-tools, input#input-search, body.login table.inner, body.login #standalone-login table.inner, body.login table.inner td.table-col-2, div.workspace-panel-outer { border-color:#1E6B9F ; }  div#page-toolbar, body.login table.inner, #workspace-header, body.has-ws-nav #page-footer, body.login.has-ws-nav #page-footer, body.has-ws-nav.login, div#page-footer, div#page-footer .footer { background-color:#1E6B9F ; }  h1.pagetitle { color:#f93 ; }  div#page-toolbar-inner a { color:#fff ; }  td#page-col-2, div#page-bottom-toolbar { background-color:#FFFFFF ; }  div#page-footer .content div { color:#222 ; }  div#page-footer div.content a, #print_link { color:#335 ; }  body.has-ws-nav #page-footer { border-color:#335 ; }  .wikicontext-module .header { border-color:#C3DCEC ; }  .wikicontext-module .header { background-color:#C3DCEC ; }  .wikicontext-module .header { color:#222 ; }  div.comments-header { background-color:#ddd ; }  #ws-nav, #workspace-header { background-color:#1E6B9F ; }  #ws-nav ul.nav-tabs li { background-color:#C3DCEC ; }  #ws-nav ul.nav-tabs li a, #page-toolbar-inner div a { color:#222 ; }  div#view-tab.active { background-image: url(/theme_image.php?seg=l&colortime=1282599764) } div#page-toolbar-inner { background-image: url(/theme_image.php?seg=m&colortime=1282599764) } div#page-toolbar { background-image: url(/theme_image.php?seg=n&colortime=1282599764) } td#page-col-1 { background-image: url(/theme_image.php?seg=i&colortime=1282599764) } td#page-col-3 { background-image: url(/theme_image.php?seg=j&colortime=1282599764) } div#page-side-toolbar div.header { background-image: url(/theme_image.php?seg=c&colortime=1282599764) } div#page-side-toolbar { background-image: url(/theme_image.php?seg=b&colortime=1282599764) } div#page-side-toolbar ul { background-image: url(/theme_image.php?seg=a&colortime=1282599764) } div#page-footer .header .lt { background-image: url(/theme_image.php?seg=f&colortime=1282599764) } div#page-footer .header .rt { background-image: url(/theme_image.php?seg=h&colortime=1282599764) } div#page-footer .header { background-image: url(/theme_image.php?seg=g&colortime=1282599764) } div#page-footer .footer .lt { background-image: url(/theme_image.php?seg=e&colortime=1282599764) } div#page-footer .footer .rt { background-image: url(/theme_image.php?seg=d&colortime=1282599764) } div#edit-tab.active { background-image: url(/theme_image.php?seg=k&colortime=1282599764) } div#view-tab { background-image: url(/theme_image.php?seg=o&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs { background-image: url(/theme_image.php?seg=v&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs.active-tab-wiki { background-image: url(/theme_image.php?seg=p&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs.first-tab-active-not-wiki { background-image: url(/theme_image.php?seg=r&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs li { background-image: url(/theme_image.php?seg=w&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs li.active { background-image: url(/theme_image.php?seg=t&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs li.next-active { background-image: url(/theme_image.php?seg=s&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs li.last { background-image: url(/theme_image.php?seg=x&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs li.last-active { background-image: url(/theme_image.php?seg=u&colortime=1282599764) } body.has-ws-nav #ws-nav ul.nav-tabs #ws-nav-wiki.active { background-image: url(/theme_image.php?seg=q&colortime=1282599764) } div#page-bottom-toolbar { background:none; } body.wikistyle { background-color:#FFFFFF !important } #comments .comments-header .corner4px { visibility: hidden; } #comments .comments-header { border-radius:4px; } </style>    
+      
+  
+  <link rel="canonical" href="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial.htm">
+  	<title>A Slug's Guide to IDL [licensed for non-commercial use only] / split_for tutorial</title>
+<style type="text/css"></style><style type="text/css">#yieldsquare-ad {
+  margin:10px auto 20px;
+
+  width: 728px;
+}
+
+#yieldsquare-about a {
+  cursor: pointer;
+}
+
+.yieldsquare-enabled {
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 75px 75px lightgray, 0 0 0 lightgray;
+  -webkit-transition:opacity 1s linear;
+}
+
+.yieldsquare-disabled-first {
+  -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.45);
+  -webkit-transition: opacity 1s linear;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  height: 90px;
+  opacity: 1;
+  position: relative;
+  width: 728px;
+}
+
+.yieldsquare-disabled-second {
+  -webkit-transition: all 0.4s ease-in-out;
+  background-image: url(http://s3.amazonaws.com/static.yieldsquare.com/ads-disabled/messagebed.gif);
+  border-radius:0 0 5px 5px;
+  box-shadow: inset 0 0 35px 35px transparent, 0 0 75px 50px transparent;
+  height: 90px;
+  opacity: 0;
+  position: relative;
+  width: 728px;
+}
+
+#yieldsquare-about-ad {
+  font:11px arial !important;
+  color:#555;
+  padding: 4px;
+  text-align:center;
+}
+
+#yieldsquare-about-ad a {
+  cursor: pointer;
+  color: #333;
+}
+
+.yieldsquare-message-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.yieldsquare-message-p {
+    font: 13px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    width: 542px;
+    height: 74px;
+    left: 123px;
+    position: absolute;
+    top: 0px;
+    color: #3d3d3d;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.yieldsquare-message-p span {
+    font: bold 16px/17px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    color: #292929;
+}
+
+.yieldsquare-message-p a {
+    text-decoration: none;
+    color: #1d97cf;
+}
+
+.yieldsquare-message-p a:hover {
+    text-decoration: underline;
+}
+
+#yieldsquare-message-x {
+    position: absolute;
+    left: 715px;
+    top: 6px;
+}
+
+</style></head>
+<body class=" has-ws-nav wikipage chrome chrome37">
+<!-- network bar -->
+<div id="network-bar" class="network-bar clearfix standalone">
+  <ul id="network-bar-breadcrumbs">
+        <li class="last" id="network-crumb-wiki"><a href="http://slugidl.pbworks.com/" id="network-crumb-wiki-link">A Slug's Guide to IDL</a></li>
+  </ul>
+
+      <!-- user bar -->
+    <div id="user-bar" class="user-bar "><div class="user-bar-left"><div class="user-bar-right"><p><a href="http://slugidl.pbworks.com/w/session/login">log in</a><a id="network-bar-help" class="network-bar-help" target="_new" href="http://usermanual.pbworks.com/?wiki=slugidl&utm_campaign=wiki-link">help</a></p></div></div></div>
+  
+  
+      <div id="network-bar-signup" class="network-bar-section">
+      <span class="iconbutton upgrade">
+        <a class="network-bar-signup-link" href="https://plans.pbworks.com/signup/basic20?utm_campaign=mcgetyourown&utm_source=personal">Get a free wiki</a>
+        &nbsp;|&nbsp;
+        <a class="network-bar-signup-link" href="http://pbworks.com/signup?utm_campaign=freebiz&utm_source=personal">Try our free business product</a>
+      </span>
+    </div>
+  
+</div>
+
+    <div id="ws-nav" class="chrome-content">
+          <ul class="nav-tabs active-tab-wiki first-tab-active">
+        <li id="ws-nav-wiki" class="active"><a href="http://slugidl.pbworks.com/w/page/28913065/A%20Slug%27s%20Guide%20to%20IDL">Wiki</a></li><li id="ws-nav-browse" class="last"><a href="http://slugidl.pbworks.com/w/browse/">Pages &amp; Files</a></li>      </ul>
+    
+    <div id="ws-nav-search">
+      <input type="search" autosave="com.pbworks..search" results="5" placeholder="Search this workspace" class="inputtext text" name="SearchFor" id="input-search" tabindex="1" title="Search" autocomplete="off">
+    </div>
+  </div>
+<div id="wrapper">
+<table id="container" cellspacing="0">
+<tbody><tr>
+  <td id="main-content">
+    
+    <div id="page">
+      <div id="page-toolbar">
+        <div id="page-toolbar-inner">
+          <div id="view-tab" class="active">View</div>
+                      <div id="edit-tab" class="logintoedit"><a href="javascript:void(0);">Edit</a></div>
+          					<div id="expand-collapse-page"><a id="expand-collapse-page-link" href="javascript:void(0);"></a></div>
+        </div>
+      </div>
+            <div id="edit-button-bubble" style="display: none;" class="bubble">
+        <div id="edit-button-arrow"></div>
+        <a class="close" href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial#"></a>
+        <table cellspacing="0"><tbody><tr class="header"><td class="left"></td><td class="right"></td></tr><tr class="content"><td class="left"></td><td class="right">
+              <div class="inner-content">
+                              <div class="top">
+                                  To edit this page,<br>
+                  <a href="http://slugidl.pbworks.com/request_access.php">request access</a> to the workspace.                </div>
+                <p>Already have an account? <a href="http://slugidl.pbworks.com/w/session/login?edit=1">Log in</a>!</p>
+                                            </div>
+            </td></tr></tbody></table>
+      </div>
+      
+      <table cellspacing="0" id="inner-page">
+        <tbody><tr>
+          <td id="page-col-1" width="4">&nbsp;</td>
+          <td id="page-col-2">
+                          <div id="wikicontent">
+  <h1 class="pagetitle box">
+      split_for tutorial
+  </h1>
+    <div class="page-history">
+      <a href="http://slugidl.pbworks.com/w/page-revisions/37642590/split_for%20tutorial" class="iconbutton historyicon">
+      Page history
+    </a>
+        last edited
+    by <span id="page-editor"><a href="javascript:alert('Please join this workspace to see more details about this user.');" class="iconbutton usericon usercard_trigger">Robert da Silva</a></span> <span id="page-history-ago">3 years ago</span>
+    <div id="new-revision-available"></div>
+  </div>
+  
+  <div id="lockinfo">
+    </div>
+
+    <div id="wikipage" class="box wikistyle">
+
+    <div style="" id="wikipage-inner">
+    <p>If you want to use the <a href="http://slugidl.pbworks.com/f/split_for.pro"><span style="font-family:&#39;Courier New&#39;;">split_for.pro</span></a> routine you will need the following codes for dependencies:</p>
+<ul><li><a href="http://slugidl.pbworks.com/f/struct_pass.pro"><span style="font-family:&#39;Courier New&#39;;">struct_pass.pro</span></a> </li>
+<li><a href="http://slugidl.pbworks.com/f/rstring.pro"><span style="font-family:&#39;Courier New&#39;;">rstring.pro</span></a> </li>
+<li><a href="http://slugidl.pbworks.com/f/splog.pro"><span style="font-family:&#39;Courier New&#39;;">splog.pro</span></a> </li>
+<li><a href="http://slugidl.pbworks.com/f/x_chkfil.pro"><span style="font-family:&#39;Courier New&#39;;">x_chkfil.pro</span></a></li>
+</ul><p>&nbsp;</p>
+<p><span style="text-decoration:underline;color:#ff0000;"><strong>Before we begin</strong></span></p>
+<p>&nbsp;</p>
+<ul><li>Code inside a child process (or this case sent to <span style="font-family:&#39;Courier New&#39;;">split_for</span>) is difficult to debug. So debug all your code before translating it to <span style="font-family:&#39;Courier New&#39;;">split_for</span>. Notes on tools split_for uses for debugging are below.</li>
+<li>the code can be split any number of times given by the nsplit keyword (default to 2),&nbsp;but be aware that parallel code only increases speed if you are using more resources by running parallel. Running 100 jobs on 4 cores won't help you much and will likely run much slower. Also many IDL routines are parallel (e.g. many basic mathematical operations like '+' etc...) so be sure you want to run a parallel job before you use this program &nbsp;</li>
+</ul><p>&nbsp;</p>
+<h2>Example</h2>
+<p>Note that this example is actually a very poor use of split_for as the overheads are longer than the code to run. As a result the job still runs serial but this is a minor point. Make your loop longer and you will see the advantage.</p>
+<p><span style="color:#3366ff;">&nbsp;</span></p>
+<p>Now imagine I have the following for loop:<span style="font-family:&#39;Courier New&#39;;line-height:15px;">&nbsp;</span></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; kk=10</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i=0, 10 do begin</span><span style="font-family:&#39;Courier New&#39;;line-height:15px;">&nbsp;</span><span style="font-family:&#39;Courier New&#39;;line-height:15px;">&nbsp;</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;if n_elements(mm) EQ 0 then mm=i else mm=[mm, i]</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<span style="font-family:&#39;Courier New&#39;;">if n_elements(nn) EQ 0 then nn=i^2 else nn=[nn, i^2]</span><br></span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endfor</span></p>
+<p>&nbsp;</p>
+<p>This can be split up with <span style="font-family:&#39;Courier New&#39;;">split_for</span> with the following command:</p>
+<p>&nbsp;&nbsp;<span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp;.f &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kk=10<br></span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; split_for, 0, 10, commands=[$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; '<span style="font-family:&#39;Courier New&#39;;">if n_elements(mm) EQ 0 then mm=i else mm=[mm, i]</span>',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;'<span style="font-family:&#39;Courier New&#39;;">if n_elements(nn) EQ 0 then nn=i*kk else nn=[nn, i*kk]'</span>], $</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;varnames='kk', $</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;outvar=['mm', 'nn']</span></p>
+<p>After this runs, we can check out variables with a help command</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDL&gt; help</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;% At $MAIN$ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT &nbsp; &nbsp; &nbsp; = &nbsp; &nbsp; &nbsp; 10</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MM0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT &nbsp; &nbsp; &nbsp; = Array[6]</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MM1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT &nbsp; &nbsp; &nbsp; = Array[5]</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;&nbsp;NN0 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT &nbsp; &nbsp; &nbsp; = Array[6]</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NN1 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; INT &nbsp; &nbsp; &nbsp; = Array[5]</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;line-height:15px;">&nbsp;&nbsp; &nbsp; Compiled Procedures:</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;$MAIN$ &nbsp;SPLIT_FOR &nbsp; SPLOG &nbsp; &nbsp; &nbsp; XMANAGER</span></p>
+<p>&nbsp;</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Compiled Functions:</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;RSTRING &nbsp; &nbsp; SPLOG_TRIM &nbsp;STR_SEP &nbsp; &nbsp; X_CHKFIL</span></p>
+<p><span style="line-height:15px;">We note that we now have two new variables called <span style="font-family:&#39;Courier New&#39;;">mm0</span> amd <span style="font-family:&#39;Courier New&#39;;">mm1</span>. These variables represent the outputs of the each of the splits. i.e. <span style="font-family:&#39;Courier New&#39;;">mm0</span> corresponds to the <span style="font-family:&#39;Courier New&#39;;">mm</span> variable that was built up in split 0 and <span style="font-family:&#39;Courier New&#39;;">mm1</span> corresponds to the values from string 1. I leave the combination of the outputs to the user. As a note, this code will clobber any existing variables.</span></p>
+<p>&nbsp;</p>
+<p>I know this sounds a little confusing so we will take some time to go through this more carefully. Let's dissect the calling sequence:</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; .f &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></p>
+<p>This is just to give us a clean slate for testing purposes</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; kk=10</span></p>
+<p>Here we define a variable which we will pass to the for loop.</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; split_for, 0, 10, commands=[$</span></p>
+<p>Ok now we are calling<span style="font-family:&#39;Courier New&#39;;"> split_for</span>. We are setting up a loop from 0 to 10.</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;'if n_elements(mm) EQ 0 then mm=i else mm=[mm, i]',$</span></p>
+<p>Now we pass the first command to the for loop. This command just makes an array which stores the indices. This command can be anything you want it to be.</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;'if n_elements(nn) EQ 0 then nn=i*kk else nn=[nn, i*kk]'], $</span></p>
+<p>Now we pass the second command. Note how we do this. The commands are passed an array of strings where each element is a line that gets passed to the for loop.</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; varnames='kk', $</span></p>
+<p>This syntax passes in the variable we want to input. It is called <span style="font-family:&#39;Courier New&#39;;">kk</span>. We could pass more variables by passing an array of names here. You pass the names of the variables and not the variables themselves!You can access the name of a variable with <span style="font-family:&#39;Courier New&#39;;">scope_varname()</span>, for example <span style="font-family:&#39;Courier New&#39;;">scope_varname(kk)</span> returns the string '<span style="font-family:&#39;Courier New&#39;;">kk</span>'.&nbsp;If you want to pass as structure you need to use the&nbsp;<span style="font-family:&#39;Courier New&#39;;">struct2pass</span>&nbsp;syntax.&nbsp;</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;outvar=['mm', 'nn']</span></p>
+<p>Now we name the variables that we want out of our for loop. So how do we get access to these variables? Well they will just be there after you call the program (magic isn't it). The program will create a variable at the level of the program from which you call it, so if you already have a variable of that name it will be overwritten. Since the variables can be of any type it is non-trivial for the code to figure out how you want them connected. So instead the code outputs an instance of each variable for each split it makes. In our instance, we had 2 splits so there are two version of each of the <span style="font-family:&#39;Courier New&#39;;">mm</span> and <span style="font-family:&#39;Courier New&#39;;">nn</span> variables. These are called <span style="font-family:&#39;Courier New&#39;;">mm0</span>, <span style="font-family:&#39;Courier New&#39;;">mm1</span>, <span style="font-family:&#39;Courier New&#39;;">nn0</span>, <span style="font-family:&#39;Courier New&#39;;">nn1</span>. <span style="font-family:&#39;Courier New&#39;;">mm0</span> represents the version of mm that was output from the first split and <span style="font-family:&#39;Courier New&#39;;">mm1</span> represent the version of <span style="font-family:&#39;Courier New&#39;;">mm</span> that was output by the second. The same is the case for <span style="font-family:&#39;Courier New&#39;;">nn</span>.</p>
+<p>&nbsp;</p>
+<p>If this is unclear, let me know and I will add to this explanation.</p>
+<hr><h3>Why doesn't it always run exactly nsplit splits?&nbsp;&nbsp; &nbsp;</h3>
+<p>The code tries to run the minimum number of jobs which offer the same speed increase. The exact rule for determining how many splits there will be is below</p>
+<p>&nbsp;</p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;nsplit=nsplit &lt; (finish-start+1) ;the maximum number of splits possible is the number of iterations in your loop&nbsp;</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;step=ceil((finish-start+1.)/nsplit)&nbsp;&nbsp; &nbsp; ;this calculates the step that is achievable for maximum speed increase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;;given your start and finish for the for loop and the number of splits.</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;;----</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;; the following bit finds out the minimum number of splits that get you the most speed&nbsp;<br></span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;fin_arr=start+step*(findgen(nsplit)+1)</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;min_fin_arr=min(where(fin_arr GE finish))</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp;nsplit=min_fin_arr+1</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr><h3>How to quickly convert your code</h3>
+<p>Imagine you have the following for loop</p>
+<p><span style="font-family:&#39;Courier New&#39;;">for i=0, 10 do begin</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; expr1</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; expr2</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; expr3</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; expr4</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">endfor</span></p>
+<p>&nbsp;</p>
+<p>Aside from passing variables in and out all have to do is use a macro to edit each of the lines inside the for loop to begin with an <span style="font-family:&#39;Courier New&#39;;">'</span> and end with <span style="font-family:&#39;Courier New&#39;;">',$</span>. See below.</p>
+<p><span style="font-family:&#39;Courier New&#39;;">for i=0, 10 do begin</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr1',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr2',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr3',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr4',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">endfor</span></p>
+<p>&nbsp;</p>
+<p>Now remove the endfor line and replace the last <span style="font-family:&#39;Courier New&#39;;">',$</span> with <span style="font-family:&#39;Courier New&#39;;">']</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">for i=0, 10 do begin</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr1',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr2',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr3',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr4']</span></p>
+<p>&nbsp;</p>
+<p>Now replace the first line with the proper split_for syntax:</p>
+<p><span style="font-family:&#39;Courier New&#39;;">split_for,0, 10, commands=[$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr1',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr2',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr3',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr4']</span></p>
+<p>&nbsp;</p>
+<p>Then add in anything you want for passing variables in and out:</p>
+<p><span style="font-family:&#39;Courier New&#39;;">split_for,0, 10, commands=[$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr1',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr2',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr3',$</span></p>
+<p><span style="font-family:&#39;Courier New&#39;;">&nbsp;&nbsp; &nbsp; 'expr4'], varnames=['foo1', 'foo2'], outvar=['foo3', 'foo4']</span></p>
+<p>&nbsp;</p>
+<p>And you are done!&nbsp;</p>
+<p>Note: You can enclose single quotes in double quotes for instance to include the command:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family:&#39;Courier New&#39;;">&nbsp;print, 'hello world'</span></p>
+<p>you can simply use</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family:&#39;Courier New&#39;;">&nbsp;"print, 'hello world'"</span></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<hr><h3>How to debug</h3>
+<p>I told you that you had to debug your code before you passed it in to split_for... but say you didn't because you are a bad person... then you can use the debug keyword. This works exactly the same as the normal <span style="font-family:&#39;Courier New&#39;;">split_for</span> except you use the keyword&nbsp;<span style="font-family:&#39;Courier New&#39;;">debug</span>. The syntax is to set the&nbsp;<span style="font-family:&#39;Courier New&#39;;">debug</span>&nbsp;keyword to be the number of the split you want to debug. There remain issues with this feature and it is thus&nbsp;<strong>*not*</strong>&nbsp;recommended. This is still in development.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+    </div>
+  
+  </div>
+
+  </div>
+
+  <div id="wikiedit" style="display:none;">
+        	<div id="editor-panel" class="box">
+  <h1 id="editTitle" class="pagetitle ellipses">split_for tutorial</h1>
+      
+    <table style="table-layout:fixed; width:100%" id="edit-panel">
+      <colgroup><col>
+      <col style="width:240px">
+      </colgroup><tbody><tr><td>
+      <form method="post" action="http://slugidl.pbworks.com/split_for%20tutorial" id="editwikipage"><input type="hidden" name="process" value="edit_page"><div id="editframe"></div></form>
+      </td>
+      <td>
+      <div id="editor-column" style="margin-left:12px;" class="thingbar">
+			  <div id="edit-tools">
+					     <h4>Page Tools</h4>
+                    <div class="editor-module">
+      <div class="header">
+        <h3>Insert links</h3>
+        <p class="aux">Insert links to other pages or uploaded files.</p>
+      </div>
+      <div class="editor-module-tabs">
+        <a href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial#" class="active" id="linkselectab-pages">Pages</a>
+        <a href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial#" id="linkselectab-images">Images and files</a>
+      </div>
+  
+      <div class="content">
+          <div style="display:none" id="thingbar-pages">
+            <div style="border-bottom:1px dotted #bbb; font-size: 10px; padding-bottom: 0.5em; margin-bottom: 0.5em;"><a href="javascript:void(0);" onmousedown="insert_newlink_into_editor(); return false">Insert a link to a new page</a></div>
+            <ol id="thingbarpages"><li><div align="center"><span id="thingbarLoadIcon"></span> Loading...</div></li></ol>
+          </div>
+          <div style="display:none;" id="thingbar-images">
+                            <ol id="thingbarfiles"> <li id="thingbar-images-noimages">No images or files uploaded yet.</li>
+</ol>
+			        <div style="border-top:1px dotted #bbb; font-size: 10px; padding-top: 0.5em; margin-top: 0.5em;"><a href="javascript:void(0);" id="thingbar-url-link">Insert image from URL</a></div>
+          </div>
+	    </div>
+    </div>
+			  </div>
+        <p id="editor-tip" class="aux">
+            <strong>Tip:</strong> To turn text into a link, highlight the text, then click on a page or file from the list above.
+        </p>
+		  </div>
+
+	</td>
+</tr>
+</tbody></table> 
+</div>
+  </div>
+
+  <style> div#comments .comment { margin-bottom:5px; } div#comments .content p { margin-bottom:5px; }  </style><div id="comments" class="box nocomments">
+<div class="comments-header">
+  <div class="corner4px top"><div class="right"></div><div class="left"></div></div>
+  <h3>
+    Comments (<span id="comments-count">0</span>)
+      </h3>
+  <a name="comments"></a>
+  <div class="corner4px bot"><div class="right"></div><div class="left"></div></div>
+</div>
+<p id="comments-nopermission">You don't have permission to comment on this page.</p>
+</div>
+
+
+  <div id="page-bottom-toolbar">
+  <div class="content box">
+    <a href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial?mode=embedded" rel="nofollow" class="iconbutton print" id="print_link">Printable version</a>
+  </div>
+</div>
+
+<!--[if IE]>
+  <style type="text/css" media="screen">
+    div#sendalink_to_container div.accontainer { left: 122px; margin-top: 20px; }
+    input#sendalink_to { margin-bottom: 7px; }
+    div#sendalink_to_container div#header, div#sendalink_to_container ul, div#sendalink_to_container div#footer { display: inline-block; }
+  </style>
+<![endif]-->
+                      </td>
+          <td id="page-col-3" width="4">&nbsp;</td>
+        </tr>
+      </tbody></table>
+      <div id="page-footer">
+        <div class="header">
+          <div class="rt"></div>
+          <div class="lt"></div>
+        </div>
+        <div class="content"><div id="footer-logo"><a href="http://pbworks.com/?utm_campaign=wiki-link" title=""></a></div>
+
+<div id="footer-pbwiki">
+  <p>
+    <strong><a href="https://pbworks.com/?utm_campaign=wiki-link">PBworks</a> </strong> / <a target="_new" href="http://usermanual.pbworks.com/?wiki=slugidl&utm_campaign=wiki-link">Help</a><br>
+    <a href="http://pbworks.com/content/termsofservice?utm_campaign=wiki-link">Terms of use</a> / <a href="http://pbworks.com/content/privacypolicy?utm_campaign=wiki-link">Privacy policy</a>
+  </p>
+</div>
+<div id="footer-about">
+  <p>
+        <strong>About this workspace</strong>
+            <br>
+    <a href="http://slugidl.pbworks.com/w/contact-owner">Contact the owner</a> /             This workspace is <strong>public</strong>
+  </p>
+</div>
+</div>        <div class="footer">
+          <div class="lt"></div>
+          <div class="rt"></div>
+        </div>
+      </div>
+    </div><!--- /#page -->
+
+  </td>
+  <td id="side-content">
+      <div id="sidebar">
+    <div id="side-toolbar" class="sidebox">
+      <ul id="main-tools" class="empty">
+                              </ul>
+      
+    </div><!-- /#side-toolbar -->
+      <div id="sidebarModules"><div id="module__login" class="wikicontext-module sidebox" style="position: relative; z-index: 0;">
+      <div class="header"><h3>Join this workspace</h3><a class="close togglemodule" href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial#"></a></div>
+      <div class="content">
+        <div class="inner-content">
+
+                     <div class="top">
+                          To join this workspace,
+              <a href="http://slugidl.pbworks.com/w/request-access">request access</a>.            </div>
+            <p>Already have an account? <a href="http://slugidl.pbworks.com/w/session/login">Log in</a>!</p>
+                              </div>
+      </div>
+      <div class="footer"></div>
+      </div><div class="wikicontext-module sidebox folders minibrowser" id="module-folders">
+  <div class="header"><h3 id="module-title-folders">Navigator</h3><a href="javascript:void(0);" class="close togglemodule">&nbsp;</a></div>  <div class="content"><div class="heading"><span class="folder_back">&nbsp;</span><a class="iconbutton folder foldericon" href="http://slugidl.pbworks.com/w/browse/#view=ViewFolder&param=Speeding%20Up">Speeding Up</a></div><div class="mblist" _scrolltop="189" style="height: 144px;"><div style="position: relative; height: 162px;"><div class="mbfolder" style="zoom: 1; position: absolute; top: 0px;"><a href="javascript:void(0);" class="iconbutton folder foldericon">C</a></div><div class="mbpage alternate" style="zoom: 1; position: absolute; top: 27px;"><a href="http://slugidl.pbworks.com/w/page/28913314/Calling%20C%20from%20IDL">Calling C from IDL</a></div><div class="mbpage" style="zoom: 1; position: absolute; top: 54px;"><a href="http://slugidl.pbworks.com/w/page/29199259/Child%20Processes">Child Processes</a></div><div class="mbpage alternate" style="zoom: 1; position: absolute; top: 81px;"><a href="http://slugidl.pbworks.com/w/page/40310218/Profiler">Profiler</a></div><div class="mbpage" style="zoom: 1; position: absolute; top: 108px;"><a href="http://slugidl.pbworks.com/w/page/29635393/Running%20IDL%20in%20the%20Background">Running IDL in the Background</a></div><div class="mbpage alternate" style="zoom: 1; position: absolute; top: 135px;"><a href="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial.htm" style="font-weight: bold;">split_for tutorial</a></div></div></div><div class="tabs"><a class="folder_properties" href="http://slugidl.pbworks.com/w/browse/#view=ViewFolder&param=Speeding%20Up"><span></span>options</a><a class="pages-tab filter_link active" href="">Pages</a><a class="files-tab filter_link" href="">Files</a></div></div>
+<div class="footer resizeable">&nbsp;</div>
+</div><div class="wikicontext-module sidebox sidebar" id="module-sidebar">
+  <div class="header"><h3 id="module-title-sidebar">SideBar</h3><a href="javascript:void(0);" class="close togglemodule">&nbsp;</a></div>    <div class="content wikistyle">
+      <p>To Do:</p>
+<ul><li>Plots with insets&nbsp;</li>
+<li><span style="text-decoration:underline;"><strong>Update to Coyote graphics!!!</strong></span>&nbsp;</li>
+<li>figure out transparency stuff once and for all with alpha layer...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<ul><li>make polyfill command&nbsp;</li>
+<ul><li>set to Z buffer</li>
+<li>snapshot then set background color to transparent, set rest to have a given alpha</li>
+<ul><li>turn xsty and ysty to have +=4, use !x, and !y to set axes</li>
+</ul><li>then combine image&nbsp;</li>
+<li>then display image&nbsp;</li>
+</ul></ul><li>hashes</li>
+<li>linked lists</li>
+<li>objects&nbsp;</li>
+<li>Widgets </li>
+<ul><li><a href="http://slugidl.pbworks.com/w/page/Making-Resizable-Widgets">Making Resizable Widgets</a>&nbsp;&nbsp;&nbsp;</li>
+<li>widget event timer</li>
+</ul><li>update <span style="font-family:&#39;Courier New&#39;;">struct_pass</span> (ask Jacob)</li>
+<li>write <span style="font-family:&#39;Courier New&#39;;">struct_pass_out</span>&nbsp;</li>
+<li>scope_varfetch , scope_varname&nbsp;</li>
+<li>add whole of RIDL&nbsp;</li>
+<ul><li>separate slugidl from ridl and post slug idl</li>
+</ul><li><span style="font-family:&#39;Courier New&#39;;">split_for</span> combining outputs tutorial&nbsp;</li>
+<li><span style="font-family:&#39;Courier New&#39;;">ct_fiddle&nbsp;</span></li>
+<li>interactive plotting</li>
+<ul><li>etc.&nbsp;</li>
+</ul><li><span style="font-family:&#39;Courier New&#39;;">rcontour</span>: smaller contour plots&nbsp;&nbsp;</li>
+<li><span style="font-family:&#39;Courier New&#39;;">rbuff.pro</span>&nbsp;</li>
+<li><span style="font-family:&#39;Courier New&#39;;">iReadThat</span></li>
+<li>explanation of bash profile and csh profiles, what they are, where they are, and their different syntaxes</li>
+<li>add <span style="font-family:&#39;Courier New&#39;;">ps_small</span> to <span style="font-family:&#39;Courier New&#39;;">rpsclose</span>&nbsp;</li>
+<li><span style="font-family:&#39;Courier New&#39;;">cd</span>, <span style="font-family:&#39;Courier New&#39;;">pwd</span> commands in idl&nbsp;</li>
+<li><span style="font-family:&#39;Courier New&#39;;">latexify /fullpage</span>--&gt; for when mapped to ~48% of a sheet of A4 PAPER&nbsp;</li>
+<li>add transparency example to example plots (can be found in ~/idl/ridl/plotting/examples/)&nbsp;</li>
+</ul>
+          </div>
+  <div class="footer">&nbsp;</div>
+</div><div class="wikicontext-module sidebox recentactivity" id="module-recentactivity">
+  <div class="header"><h3 id="module-title-recentactivity">Recent Activity</h3><a href="javascript:void(0);" class="close togglemodule">&nbsp;</a></div>  <div id="new-recent-activity" style="display: none;">
+    <a id="new-recent-activity-refresh" href="http://slugidl.pbworks.com/w/page/37642590/split_for%20tutorial#">
+      Show <span id="new-recent-activity-count">0</span> new item<span id="new-recent-activity-plural">s</span>
+    </a>
+  </div>
+  <div class="content" style=""><ul id="recentactivity"><li class="pageediticon"><a class="ellipses preview" time="1391625890" href="http://slugidl.pbworks.com/w/page/28913065/A%20Slug%27s%20Guide%20to%20IDL">A Slug's Guide to IDL</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1363028278" href="http://slugidl.pbworks.com/w/page/28913708/Adding%20Programs%20to%20Your%20IDL%20Path">Adding Programs to Your IDL Path</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1359670804" href="http://slugidl.pbworks.com/w/page/30539124/Slug%27s%20Guide%20to%20Widgets">Slug's Guide to Widgets</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1359670768" href="http://slugidl.pbworks.com/w/page/28913065/A%20Slug%27s%20Guide%20to%20IDL">A Slug's Guide to IDL</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1357853129" href="http://slugidl.pbworks.com/w/page/29199259/Child%20Processes">Child Processes</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1346879126" href="http://slugidl.pbworks.com/w/page/29675373/Fits%20Files">Fits Files</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li><li class="pageediticon"><a class="ellipses preview" time="1346879094" href="http://slugidl.pbworks.com/w/page/28913314/Calling%20C%20from%20IDL">Calling C from IDL</a>edited by <a href="http://slugidl.pbworks.com/user/6f237a3c0e18215c7fdd2b226d30e036e3d668ca" class="user usercard_trigger" data-uid="6f237a3c0e18215c7fdd2b226d30e036e3d668ca">Robert da Silva</a></li></ul><a class="moreactivity" href="http://slugidl.pbworks.com/changes.php">More activity...</a></div>
+<div class="footer resizeable">&nbsp;</div>
+</div></div>
+    </div>
+  </td>
+  </tr>
+
+</tbody></table>
+</div><div id="yieldsquare-ad" class="yieldsquare-enabled" style="display: none; clear: both;"><iframe id="yieldsquare-frame" frameborder="0" width="0" height="0" src="about:blank" style="margin: 0px; overflow: hidden; display: none !important; visibility: hidden !important; opacity: 0 !important; background-position: 0px 0px;"></iframe><div id="yieldsquare-about-ad">This ad is supporting your extension Smooth Gestures<a id="yieldsquare-disable-ad" href="http://www.smoothgestures.com/donate">Turn off these ads?</a></div></div>
+      <script src="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/quant.js" async="" type="text/javascript"></script><script>
+  PBinfo = {"CurrentPage":{"is_dev":false,"sessCookie":"ds3","requesttime":"1412151955","page":"split_for tutorial","editor_v3":true,"folder":"Speeding Up","security":"default"},"CurrentWiki":{"front_page":"A Slug's Guide to IDL","isPublic":true,"is_archived":false,"debug":false,"usercount":3,"filecount":93,"pagecount":58,"foldercount":11,"name":"slugidl","title":"A Slug's Guide to IDL","cat":"ind","readonly":null,"comments_disabled":null,"comments_newest_first":null,"network_groups":[],"requestaccess":true},"CheckPermissions":{"uid":false,"personal_wiki":false},"GetFeatures":{"fliqz_upsell":true},"GetTimes":{"_valid_as_of":"1412151955","commenttime":1291305755,"filetime":1346265521,"foldertime":1310063286,"page_list_time":1346266338,"pagetime":1391625890,"permtime":1407493204,"tagtime":1285096539,"_args":{"op":"GetTimes"}},"GetUserPrefs":{"sidebar":{"folders":[],"sidebar":[],"addusers":[],"recentactivity":[]},"sidebar_collapsed":false,"show_rev_comment":"context-error"},"BuildTime":1411789743,"CurrentObject":37642590,"GetPage":{"_perm_cache_times":{"pagetime":1391625890,"foldertime":1310063286,"permtime":1407493204},"_valid_as_of":"1412151955","author":{"perm":"admin","name":"Robert da Silva","first_name":"Robert da","last_name":"Silva","email":"rdasilva.astro@gmail.com","image":"http:\/\/slugidl.pbworks.com\/uimg\/bread.png","verified":"1282591673","email_verified":"1282591661","lastview":1391625900,"lastviewtext":"7 months","large_image":"http:\/\/slugidl.pbworks.com\/uimg\/bread.png","uid":"6f237a3c0e18215c7fdd2b226d30e036e3d668ca"},"current_revision":1300128340,"folder":"Speeding Up","hasPlugins":false,"has_custom_perms":false,"hidden":false,"locked":false,"mtime":1300128340,"name":"split_for tutorial","oid":37642590,"perms":{"r":true},"revcount":17,"revurl":"http:\/\/slugidl.pbworks.com\/w\/page\/37642590\/split_for%20tutorial","size":15809,"wikistyle":false,"_args":{"oid":37642590,"revision":false,"op":"GetPage"}}};
+</script>
+<script type="text/javascript" src="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/libraries-v41814361.js"></script>
+<script type="text/javascript" src="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/packed-v65464171.js"></script>
+<script type="text/javascript" src="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/extras-v46757463.js"></script><!--[if lte IE 6]>
+  <script type="text/javascript">function ie6minwidth(){var size = (document.documentElement.clientWidth<960 ? '960px' : '100%'); $(document.body).setStyle({'width':size});} document.observe("dom:loaded", ie6minwidth); Event.observe(window, 'resize', ie6minwidth); 
+</script>
+<![endif]-->
+    <script type="text/javascript">
+  var _qevents = [{ qacct : "p-16CGFkiSpdTEU" }];
+  (function() {
+   var elem = document.createElement('script');
+   elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge")
+               + ".quantserve.com/quant.js";
+   elem.async = true;
+   elem.type = "text/javascript";
+   var scpt = document.getElementsByTagName('script')[0];
+   scpt.parentNode.insertBefore(elem, scpt);
+  })();
+</script>
+<noscript>&lt;div style="display: none;"&gt;&lt;img src="http://pixel.quantserve.com/pixel/p-16CGFkiSpdTEU.gif" height="1" width="1" alt="Quantcast"/&gt;&lt;/div&gt;</noscript><script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./A Slug's Guide to IDL [licensed for non-commercial use only]   split_for tutorial_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2694787-12");
+pageTracker._setDomainName(".pbworks.com");
+if (document.cookie.match(/hm=/)) {
+  pageTracker._setVar('authenticated');
+}
+pageTracker._setAllowHash(false);
+pageTracker._trackPageview();
+</script>
+
+</body></html>

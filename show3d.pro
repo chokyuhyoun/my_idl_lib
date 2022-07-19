@@ -58,7 +58,7 @@ function volume_explorer_move, window, $
   return, 0
 end
 
-function show_3d, vol1, min=min, max=max, ratio=ratio, $
+function show3d, vol1, min=min, max=max, ratio=ratio, $
   xr=xr, yr=yr, zr=zr, box_sz=box_sz, im1=im1, im2=im2, im3=im3
 
   on_error, 1

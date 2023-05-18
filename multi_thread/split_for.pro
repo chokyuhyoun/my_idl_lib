@@ -36,6 +36,7 @@
 ;		the batch script if debug is set
 ;	levoff: how many levels up do you want to grab your variable names from
 ;	wait_interval: time between each split
+;	percent_unit : the minimal unit presenting the progress of each process [%]
 ;EXAMPLE
 ;	kk=10
 ;  	split_for, 0, 10, commands=[$
@@ -54,6 +55,7 @@
 ;
 ;Written by R. da Silva, UCSC, 9-17-10
 ;Updated by R. da Silva, UCSC, 3-14-11 == fixed some bugs
+;           K. Cho, LMSAL, 12-6-22, Display the process progress in percentage
 ;-
 
 pro split_for, start, finish, varnames=varnames, nsplit=nsplit, $
@@ -68,9 +70,14 @@ pro split_for, start, finish, varnames=varnames, nsplit=nsplit, $
                after_loop_commands=after_loop_commands, $
                before_loop_commands=before_loop_commands, $
                debug=debug, $
-	       levoff=levoff, halt=halt, wait_interval=wait_interval
+               levoff=levoff, halt=halt, wait_interval=wait_interval, $
+               percent_unit=percent_unit
 ;if ~keyword_set(levoff) then if scope_level() EQ 2 then levoff=2
-
+if n_elements(percent_unit) eq 0 then percent_unit=20. $
+  else percent_unit=floor(percent_unit)
+if percent_unit le 0. or percent_unit gt 100. then percent_unit = 0
+percent_unit_str = string(percent_unit, f='(f3.0)')
+  
 fluff='x123123'
 basename=fluff+'batch.pro'
 if n_elements(debug) NE 0 AND x_chkfil('simple_batch_451451', /silent) EQ 0 then begin
@@ -107,27 +114,45 @@ endif else begin
     fin_arr=start+step*(findgen(nsplit)+1)
     min_fin_arr=min(where(fin_arr gt finish))
     nsplit=min_fin_arr+1  
+    fin_arr[-1] = finish
+    start_arr = [start, (fin_arr+1)[0:-2]]
+    start_arr = long64(temporary(start_arr))
+    fin_arr = long64(temporary(fin_arr))
     if keyword_set(verbose) then splog, 'Splitting job into ', nsplit, ' threads'
 
 ;now we need to write the batch files that tell the child processes what to do
 
     for i=0, nsplit-1 do begin
         openw,lun, 'p'+rstring(i)+basename, /get_lun
+        i_str = rstring(start_arr[i])
+        f_str = rstring(fin_arr[i])
+        nloop = fin_arr[i]-start_arr[i]+1
+        signal = round(nloop*percent_unit*1d-2*(dindgen(1d2/percent_unit)+1)) + start_arr[i] - 1
+        printf, lun, 'signal = ['+strjoin(signal, ',')+']'
+        printf, lun, 'percent_str = string((findgen(n_elements(signal))+1)*1d2/n_elements(signal), f="(i4)")+" % |"'
+        printf, lun, 'prog0 = replicate("       |", '+rstring(nsplit)+')'
+        printf, lun, 'ii = 0'
+
         if n_elements(before_loop_commands) NE 0 then $
-          for j=0, n_elements(before_loop_commands)-1 do printf, lun, $
-          before_loop_commands[j]
-        if i NE nsplit-1 then    printf,lun, 'for '+ctvariable_name+'='+$
-          rstring(start+i*step)+','+rstring(start+(i+1)*step-1)+' do begin &$' else $
-          printf,lun, 'for '+ctvariable_name+'='+$
-          rstring(start+i*step)+','+rstring(finish)+' do begin &$'
-        for j=0, n_elements(commands)-1 do printf, lun, commands[j]+' &$'
+          for j=0, n_elements(before_loop_commands)-1 do $
+            printf, lun, before_loop_commands[j]
+
+        printf, lun, 'resolve_routine, "splog"'
+        printf, lun, 'for '+ctvariable_name+'='+i_str+', '+f_str+' do begin &$'
+        for j=0, n_elements(commands)-1 do printf, lun, '  '+commands[j]+' &$'
+        if percent_unit ne 0 then begin
+          printf, lun, '  if i eq signal[ii] then begin  &$'
+          printf, lun, '    prog0['+rstring(i, f='(i)')+'] = percent_str[ii] &$'
+          printf, lun, '    splog, "bridge '+string(i, f='(i3)')+'/'+string(nsplit-1, f='(i3)')+ $
+                       ' |"+strjoin(prog0)  &$'
+          printf, lun, '    ii ++  &$'
+          printf, lun, '  endif  &$'
+        endif
         printf, lun, 'endfor'
+       
         if n_elements(after_loop_commands) NE 0 then $
           for j=0, n_elements(after_loop_commands)-1 do printf, lun, $
           after_loop_commands[j]
-        printf, lun, 'splog, "*-*-*-*-*-*-*-*-*-*"'
-        printf, lun, 'splog, "completed bridge '+rstring(i)+'"'
-        printf, lun, 'splog, "*-*-*-*-*-*-*-*-*-*"'
         close, lun
         free_lun, lun
     endfor
@@ -136,7 +161,7 @@ endif else begin
         splog, '/test has been set so you can examine them'
         STOP
     endif
-
+;    stop
 
     if n_elements(debug) EQ 0 then begin
         obridge=obj_new("IDL_IDLBridge", output='')

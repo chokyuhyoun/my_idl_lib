@@ -19,10 +19,16 @@ function volume_explorer_move, window, $
     endcase
   endif
   ;   stop
+  if string(character) eq '[' then k.zz = (k.zz-1*move+sz[3]) mod (sz[3])
+  if string(character) eq ']' then k.zz = (k.zz+1*move+sz[3]) mod (sz[3])
+  if string(character) eq '{' then k.zz = (k.zz-1*move+sz[3]) mod (sz[3])
+  if string(character) eq '}' then k.zz = (k.zz+1*move+sz[3]) mod (sz[3])
   if string(character) eq 'q' then begin
     window.close
+    ptr_free, k.vol
     return, 0
   endif
+
   min = k.im1.min
   max = k.im1.max
   k.im1.setdata, reform((*k.vol)[*, *, k.zz])
@@ -59,13 +65,13 @@ function volume_explorer_move, window, $
 end
 
 function show3d, vol1, min=min, max=max, ratio=ratio, $
-  xr=xr, yr=yr, zr=zr, box_sz=box_sz, im1=im1, im2=im2, im3=im3
+  xr=xr, yr=yr, zr=zr, box_sz=box_sz, im1=im1, im2=im2, im3=im3, _extra=extra
 
-  on_error, 1
+;  on_error, 1
   vol=ptr_new(reform(vol1))
-  origin=ptr_new(vol1)
-  if n_elements(min) eq 0 then min=min(*vol)
-  if n_elements(max) eq 0 then max=max(*vol)
+;  origin=ptr_new(vol1)
+  if n_elements(min) eq 0 then min=min(*vol, /nan)
+  if n_elements(max) eq 0 then max=max(*vol, /nan)
   if n_elements(ratio) eq 0 then ratio=0
   if n_elements(box_sz) eq 0 then box_sz=0.4
   sz=size(*vol)
@@ -88,7 +94,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
     +string(zz, f=fmt)+')', rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='X pix', ytitle='Y pix', $
-    xr=xr, yr=yr)
+    xr=xr, yr=yr, _extra=extra)
   p11=plot([0, sz[1]-1], replicate(yy, 2), '--2', /over, color='gray')
   p12=plot(replicate(xx, 2), [0, sz[2]-1], '--2', /over, color='gray')
 
@@ -97,7 +103,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
     axis=2, title='X = '+string(xx, f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='Z pix', ytitle='Y pix', $
-    xr=zr, yr=yr)
+    xr=zr, yr=yr, _extra=extra)
   p21=plot(replicate(zz, 2), [0, sz[2]-1], '--2', /over, color='gray')
   p22=plot([0, sz[3]-1], replicate(yy, 2), '--2', /over, color='gray')
 
@@ -106,7 +112,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
     axis=2, title='Y = '+string(yy, f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='X pix', ytitle='Z pix', $
-    xr=xr, yr=zr)
+    xr=xr, yr=zr, _extra=extra)
   p31=plot([0, sz[1]-1], replicate(zz, 2), '--2', /over, color='gray')
   p32=plot(replicate(xx, 2), [0, sz[3]-1], '--2', /over, color='gray')
   cb3 = colorbar(target=im3, pos=[1, 0, 1.03, 1], /relative, $
@@ -120,9 +126,9 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
     '!c!c+ Ctrl : $\times$ 5'+$
     '!c!cQ : Quit')
 
-  w.uvalue = {im1:im1, im2:im2, im3:im3, vol:vol, origin:origin, $
+  w.uvalue = {im1:im1, im2:im2, im3:im3, vol:vol, $origin:origin, $
     xx:xx, yy:yy, zz:zz, $
     p11:p11, p12:p12, p21:p21, p22:p22, p31:p31, p32:p32}
   w.keyboard_handler='volume_explorer_move'
-  return, w
+  return, im1
 end

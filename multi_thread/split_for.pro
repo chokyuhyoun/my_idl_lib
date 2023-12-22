@@ -55,7 +55,9 @@
 ;
 ;Written by R. da Silva, UCSC, 9-17-10
 ;Updated by R. da Silva, UCSC, 3-14-11 == fixed some bugs
-;           K. Cho, LMSAL, 12-6-22, Display the process progress in percentage
+;           K. Cho, LMSAL, 22. 12. 6, Display the process progress in percentage
+;           K. Cho, LMSAL, 23. 12. 21, showing computing time
+;                                      Automatically merge the result in a single variable (See keyword no_merge)
 ;-
 
 pro split_for, start, finish, varnames=varnames, nsplit=nsplit, $
@@ -71,12 +73,15 @@ pro split_for, start, finish, varnames=varnames, nsplit=nsplit, $
                before_loop_commands=before_loop_commands, $
                debug=debug, $
                levoff=levoff, halt=halt, wait_interval=wait_interval, $
-               percent_unit=percent_unit
+               percent_unit=percent_unit, no_merge=no_merge
 ;if ~keyword_set(levoff) then if scope_level() EQ 2 then levoff=2
+
+t0 = systime(/sec)
 if n_elements(percent_unit) eq 0 then percent_unit=20. $
   else percent_unit=floor(percent_unit)
 if percent_unit le 0. or percent_unit gt 100. then percent_unit = 0
 percent_unit_str = string(percent_unit, f='(f3.0)')
+if ~keyword_set(no_merge) then no_merge = 0  
   
 fluff='x123123'
 basename=fluff+'batch.pro'
@@ -214,17 +219,28 @@ if keyword_set(wait_interval) then wait, wait_interval
             if fins EQ nsplit then alldone=1
         endwhile
         if keyword_set(verbose) then splog, 'All threads complete'
+        
 ;----------------------------------------------------
 ;now we get our outputs out
         if n_elements(outvar) NE 0 then begin
             for j=0, n_elements(outvar)-1 do begin
                 for i=0, nsplit-1 do begin
-                                ;use scopevarfetch with level=0 to make variables with the string names... with
-                    (scope_varfetch(outvar[j]+rstring(i),$
-				 level=-1+levoff,/enter))=$
-						obridge[i]->getvar(outvar[j])
+                    dum = execute(outvar[j]+rstring(i)+' = obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
+                    if no_merge then res = scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter)
+                    ;use scopevarfetch with level=0 to make variables with the string names... with
+;                      (scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter))=$
+;                         obridge[i]->getvar(outvar[j])
                 endfor
             endfor
+        endif
+        
+        if ~no_merge then begin
+          for j=0, n_elements(outvar)-1 do begin
+            dum = execute(outvar[j]+' = !null')
+            for i=0, nsplit-1 do $
+              dum = execute(outvar[j]+' = ['+outvar[j]+', '+outvar[j]+rstring(i)+']')        
+            dum = execute('(scope_varfetch(outvar[j], level=-1+levoff, /enter)) = 0 + '+outvar[j])
+          endfor
         endif
 
 ;----------------------------------------------------
@@ -268,7 +284,7 @@ if keyword_set(wait_interval) then wait, wait_interval
         splog, $
           'running batch file all lines in error message for'
 	splog, '   SPLIT_FOR refer to lines of the batch file'
-	@simple_batch_451451
+;	@simple_batch_451451
 	splog, 'if the batch file did not run then simply type @simple_batch_451451 to the command line now'
     if keyword_set(halt) then STOP
     endelse
@@ -279,4 +295,5 @@ if keyword_set(wait_interval) then wait, wait_interval
         free_lun, lun3
     endif
 endelse
+print, 'It took '+ string((systime(/sec) - t0)/6d1, f='(f5.1)')+' mins'
 end

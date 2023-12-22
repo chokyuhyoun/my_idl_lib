@@ -66,16 +66,12 @@ endif else begin
 r=!null
 ;r=[transpose(r2)]   
 zindex = (r2(2)/dz(0))^(1./dz(1))  
-b2 = [interpolate(bx, r2(0)/dx, r2(1)/dy, zindex), $       
+b0 = [interpolate(bx, r2(0)/dx, r2(1)/dy, zindex), $       
       interpolate(by, r2(0)/dx, r2(1)/dy, zindex), $       
       interpolate(bz, r2(0)/dx, r2(1)/dy, zindex)]       
-       
-b2=b2/norm(b2)       
-       
+b0=b0/norm(b0)       
 endelse       
-       
-       
-       
+b2 = b0
        
 while inside do begin       
 r=[r, transpose(r2)]
@@ -102,6 +98,36 @@ inside = r2(0)*(r2(0)-xmax) le 0. and  $
 limit = ((size(r))[1] gt 1d3) ? 0 : 1
 inside=inside*limit  
 endwhile        
+
+r2 = r0
+b2 = b0
+inside = 1
+while inside do begin
+  r1=r2
+  b1=b2
+  iter2=0
+  repeat begin
+    r2_0 =r2
+    r2=r1+(b1+b2)*0.5*ds*(-1)
+    zindex = (r2(2)/dz(0))^(1./dz(1))
+    b2 = [interpolate(bx, r2(0)/dx, r2(1)/dy, zindex), $
+      interpolate(by, r2(0)/dx, r2(1)/dy, zindex), $
+      interpolate(bz, r2(0)/dx, r2(1)/dy, zindex)]
+    b2=b2/norm(b2)
+    iter2=iter2+1
+
+  endrep until (norm(r2_0-r2) le ds*0.2) or iter2 ge 10
+  ;print, 'iter2=', iter2
+  ;plots, [r1(0), r2(0)]*f+(f-1)/2.,[r1(1), r2(1)]*f+(f-1)/1, /dev
+  r=[transpose(r2), r]
+  inside = r2(0)*(r2(0)-xmax) le 0. and  $
+    r2(1)*(r2(1)-ymax) le 0. and  $
+    r2(2)*(r2(2)-zmax) le 0.
+  limit = ((size(r))[1] gt 1d3) ? 0 : 1
+  inside=inside*limit
+endwhile
+
+
     
 end       
 

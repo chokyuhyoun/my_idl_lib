@@ -1,4 +1,4 @@
-pro find_procedure, word, dir=dir
+pro find_procedure, word, dir
   message, 'Finding procedures used "'+string(word)+'" word', /continue
   cd, current=c
   if n_elements(dir) eq 0 then dir=c

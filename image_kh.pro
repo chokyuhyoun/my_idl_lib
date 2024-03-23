@@ -51,9 +51,15 @@ function image_kh, img, x, y, xr=xr, yr=yr, hi_res=hi_res, over=over, _extra=ext
       extra = create_struct(extra, 'axis', 2)
     if total(strmatch(tag_names(extra), 'pos*', /fold_case)) eq 0 and $
        total(strmatch(tag_names(extra), 'lay*', /fold_case)) eq 0 then $
-      extra = create_struct(extra, 'position', [0.1, 0.1, 0.9, 0.9])
+      extra = create_struct(extra, 'position', [0.15, 0.15, 0.9, 0.9])
     if total(strmatch(tag_names(extra), 'font_size', /fold_case)) eq 0 then $
       extra = create_struct(extra, 'font_size', 13)
+    if total(strmatch(tag_names(extra), 'aspect*', /fold_case)) eq 0 then begin
+      sz = size(img1)
+      aspect_ratio = (sz[1]/sz[2] gt 2 or sz[1]/sz[2] lt 0.5) ? 0 : 1
+      extra = create_struct(extra, 'aspect_ratio', aspect_ratio)
+    endif
+            
     if sz[0] eq 3 then begin
       im = objarr(sz[3])
       im[0] = image(img1[*, *, 0], x1, y1, xr=xr, yr=yr, _extra=extra);, $

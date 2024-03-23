@@ -238,11 +238,11 @@ if keyword_set(wait_interval) then wait, wait_interval
           for j=0, n_elements(outvar)-1 do begin
             dum = execute(outvar[j]+' = !null')
             for i=0, nsplit-1 do $
-              dum = execute(outvar[j]+' = ['+outvar[j]+', '+outvar[j]+rstring(i)+']')        
+              dum = execute(outvar[j]+' = [['+outvar[j]+'], ['+outvar[j]+rstring(i)+']]')        
             dum = execute('(scope_varfetch(outvar[j], level=-1+levoff, /enter)) = 0 + '+outvar[j])
           endfor
         endif
-
+;stop
 ;----------------------------------------------------
 ;now we delete our temp batch files
         for i=0, nsplit-1 do begin

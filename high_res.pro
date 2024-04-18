@@ -1,4 +1,4 @@
-pro hi_res, img1, x1, y1, xr, yr, resol=resol
+pro high_res, img1, x1, y1, xr, yr, resol=resol
   img0 = img1 & x0 = x1 & y0 = y1
   if n_elements(resol) eq 0 then resol=1000.
   dx = x1[1] - x1[0]

@@ -1,4 +1,4 @@
-function image_kh, img, x, y, xr=xr, yr=yr, hi_res=hi_res, over=over, _extra=extra
+function image_kh, img, x, y, xr=xr, yr=yr, high_res=high_res, over=over, _extra=extra
 ;  on_error, 2
 
   img = reform(img)
@@ -32,7 +32,7 @@ function image_kh, img, x, y, xr=xr, yr=yr, hi_res=hi_res, over=over, _extra=ext
     yr = over.yr
   endif
   
-  if n_elements(hi_res) ne 0 then hi_res, img1, x1, y1, xr, yr
+  if n_elements(high_res) ne 0 then high_res, img1, x1, y1, xr, yr
 
   if n_elements(extra) eq 0 then begin
     extra={axis:2}
@@ -71,6 +71,10 @@ function image_kh, img, x, y, xr=xr, yr=yr, hi_res=hi_res, over=over, _extra=ext
     im = image(img1, x1, y1, xr=xr, yr=yr, _extra=extra);, $
 ;               font_name='malgun gothic', font_style=1)
     endelse
+    if im.xticklen ne im.yticklen then begin
+      im.xticklen = im.xticklen < im.yticklen
+      im.yticklen = im.xticklen
+    endif
     return, im
 end
 

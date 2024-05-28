@@ -23,6 +23,9 @@ function volume_explorer_move, window, $
   if string(character) eq ']' then k.zz = (k.zz+1*move+sz[3]) mod (sz[3])
   if string(character) eq '{' then k.zz = (k.zz-1*move+sz[3]) mod (sz[3])
   if string(character) eq '}' then k.zz = (k.zz+1*move+sz[3]) mod (sz[3])
+  if string(character) eq '0' then k.zz = 0
+  if string(character) eq '5' then k.zz = fix(0.5*sz[3])
+  if string(character) eq '9' then k.zz = sz[3]-1
   if string(character) eq 'q' then begin
     window.close
     ptr_free, k.vol

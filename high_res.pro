@@ -1,6 +1,6 @@
 pro high_res, img1, x1, y1, xr, yr, resol=resol
   img0 = img1 & x0 = x1 & y0 = y1
-  if n_elements(resol) eq 0 then resol=1000.
+  if n_elements(resol) eq 0 then resol=4. else resol=ceil(resol)
   dx = x1[1] - x1[0]
   dy = y1[1] - y1[0]
   xind = where((x1-xr[0]) le 0, count)
@@ -15,9 +15,8 @@ pro high_res, img1, x1, y1, xr, yr, resol=resol
   yind1 = (count eq 0) ? n_elements(y1)-1 : min(yind)
   y11 = y1[yind0:yind1]
   
-  hi_res = ceil(resol/n_elements(x11))
-  x1 = findgen(n_elements(x11)*hi_res)*dx/hi_res + x11[0]
-  y1 = findgen(n_elements(y11)*hi_res)*dy/hi_res + y11[0]
+  x1 = findgen(n_elements(x11)*resol)*dx/resol + x11[0]
+  y1 = findgen(n_elements(y11)*resol)*dy/resol + y11[0]
   img1 = rebin(img1[xind0:xind1, yind0:yind1], n_elements(x1), n_elements(y1), /sample)
 ;  stop
 end

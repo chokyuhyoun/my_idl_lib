@@ -55,7 +55,7 @@ function image_kh, img, x, y, xr=xr, yr=yr, high_res=high_res, over=over, _extra
     if total(strmatch(tag_names(extra), 'font_size', /fold_case)) eq 0 then $
       extra = create_struct(extra, 'font_size', 13)
     if total(strmatch(tag_names(extra), 'aspect*', /fold_case)) eq 0 then begin
-      sz = size(img1)
+      sz = float(size(img1))
       aspect_ratio = (sz[1]/sz[2] gt 2 or sz[1]/sz[2] lt 0.5) ? 0 : 1
       extra = create_struct(extra, 'aspect_ratio', aspect_ratio)
     endif

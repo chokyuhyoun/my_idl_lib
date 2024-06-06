@@ -68,7 +68,7 @@ function image_, img, x, y, xr=xr, yr=yr, high_res=high_res, over=over, _extra=e
         im[i] = image(img1[*, *, i], x1, y1, xr=xr, yr=yr, over=im[0])
       endfor
     endif else begin
-    im = image(img1, x1, y1, xr=xr, yr=yr, _extra=extra);, $
+    im = image(img1, x1, y1, xr=xr, yr=yr, loc=[1000, 0], _extra=extra);, $
 ;               font_name='malgun gothic', font_style=1)
     endelse
     if im.xticklen ne im.yticklen then begin

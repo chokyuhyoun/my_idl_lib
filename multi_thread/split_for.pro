@@ -44,6 +44,10 @@
 ;        outvar='mmm'
 ;
 ;	print, mmm0, mmm1
+;
+;	No comments (;) !
+;	If it does not show the progress, check variables in bridge using
+;	aa = obridge[0]->getvar('varname')
 ;	
 ;TO DO
 ;	pass structures out
@@ -59,7 +63,7 @@
 ;           K. Cho, LMSAL, 23. 12. 21, showing computing time
 ;                                      Automatically merge the result in a single variable (See keyword no_merge)
 ;-
-
+;
 pro split_for, start, finish, varnames=varnames, nsplit=nsplit, $
                outvar=outvar, commands=commands, $
                ctvariable_name=ctvariable_name, struct2pass1=struct2pass1,$
@@ -136,7 +140,7 @@ endif else begin
         printf, lun, 'signal = ['+strjoin(signal, ',')+']'
         printf, lun, 'percent_str = string((findgen(n_elements(signal))+1)*1d2/n_elements(signal), f="(i4)")+" % |"'
         printf, lun, 'prog0 = replicate("       |", '+rstring(nsplit)+')'
-        printf, lun, 'ii = 0'
+        printf, lun, 'ii__ = 0' ; for the percentage
 
         if n_elements(before_loop_commands) NE 0 then $
           for j=0, n_elements(before_loop_commands)-1 do $
@@ -146,11 +150,11 @@ endif else begin
         printf, lun, 'for '+ctvariable_name+'='+i_str+', '+f_str+' do begin &$'
         for j=0, n_elements(commands)-1 do printf, lun, '  '+commands[j]+' &$'
         if percent_unit ne 0 then begin
-          printf, lun, '  if i eq signal[ii] then begin  &$'
-          printf, lun, '    prog0['+rstring(i, f='(i)')+'] = percent_str[ii] &$'
+          printf, lun, '  if '+ctvariable_name+' eq signal[ii__] then begin  &$'
+          printf, lun, '    prog0['+rstring(i, f='(i)')+'] = percent_str[ii__] &$'
           printf, lun, '    splog, "bridge '+string(i, f='(i3)')+'/'+string(nsplit-1, f='(i3)')+ $
                        ' |"+strjoin(prog0)  &$'
-          printf, lun, '    ii ++  &$'
+          printf, lun, '    ii__++  &$'
           printf, lun, '  endif  &$'
         endif
         printf, lun, 'endfor'
@@ -224,24 +228,35 @@ if keyword_set(wait_interval) then wait, wait_interval
 ;now we get our outputs out
         if n_elements(outvar) NE 0 then begin
             for j=0, n_elements(outvar)-1 do begin
+                dummy = !null
                 for i=0, nsplit-1 do begin
-                    dum = execute(outvar[j]+rstring(i)+' = obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
-                    if no_merge then res = scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter)
+                    if no_merge then begin
+                      (scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter)) = obridge[i]->getvar(outvar[j])
+                    endif else begin 
+                      if i eq 0 then begin
+                        dum = execute('dummy = obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
+                      endif else begin
+                        dum = execute('dummy += obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
+                      endelse
+                    endelse
                     ;use scopevarfetch with level=0 to make variables with the string names... with
 ;                      (scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter))=$
 ;                         obridge[i]->getvar(outvar[j])
                 endfor
+                if ~no_merge then begin
+                  (scope_varfetch(outvar[j], level=-1+levoff, /enter)) = dummy 
+                endif
             endfor
         endif
         
-        if ~no_merge then begin
-          for j=0, n_elements(outvar)-1 do begin
-            dum = execute(outvar[j]+' = !null')
-            for i=0, nsplit-1 do $
-              dum = execute(outvar[j]+' = [['+outvar[j]+'], ['+outvar[j]+rstring(i)+']]')        
-            dum = execute('(scope_varfetch(outvar[j], level=-1+levoff, /enter)) = 0 + '+outvar[j])
-          endfor
-        endif
+;        if ~no_merge then begin
+;          for j=0, n_elements(outvar)-1 do begin
+;            dum = execute(outvar[j]+' = !null')
+;            for i=0, nsplit-1 do $
+;              dum = execute(outvar[j]+' = [['+outvar[j]+'], ['+outvar[j]+rstring(i)+']]')        
+;            dum = execute('(scope_varfetch(outvar[j], level=-1+levoff, /enter)) = 0 + '+outvar[j])
+;          endfor
+;        endif
 ;stop
 ;----------------------------------------------------
 ;now we delete our temp batch files

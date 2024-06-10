@@ -39,7 +39,7 @@ function volume_explorer_move, window, $
   k.im1.max = max
   k.im1.title = '('+string(k.xx, f=fmt)+', ' $
     +string(k.yy, f=fmt)+', ' $
-    +string(k.zz, f=fmt)+')'
+    +string(k.zz, f=fmt)+') = '+string((*k.vol)[k.xx, k.yy, k.zz], f='(e10.3)')
 
   k.im2.setdata, transpose(reform((*k.vol)[k.xx, *, *]))
   k.im2.yr = k.im1.yr
@@ -47,7 +47,6 @@ function volume_explorer_move, window, $
   k.im2.max = max
   k.im2.rgb_table = k.im1.rgb_table
   k.im2.title = 'X = '+string(k.xx, f=fmt)
-
 
   k.im3.setdata, reform((*k.vol)[*, k.yy, *])
   k.im3.xr = k.im1.xr
@@ -78,8 +77,8 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   if n_elements(ratio) eq 0 then ratio=0
   if n_elements(box_sz) eq 0 then box_sz=0.4
   sz=size(*vol)
-  xx=0.5*sz[1]
-  yy=0.5*sz[2]
+  xx=round(0.5*sz[1])
+  yy=round(0.5*sz[2])
   zz=0.
   fmt='(i0)'
   xi = 0.08
@@ -89,13 +88,13 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   pos1 = [xi, yi, xi+box_sz, yi+box_sz]
   pos2 = [xi+box_sz+0.1, yi, xf, yi+box_sz]
   pos3 = [xi, yi+box_sz+0.1, xi+box_sz, yf]
-  w = window(dim=[8d2, 8d2], window_title='Volume Explorer')
+  w = window(dim=[8d2, 8d2], loc=[900, 0], window_title='Volume Explorer')
   im1 = image_kh(reform((*vol)[*, *, zz]), $
     pos=pos1, /current, font_size=11, $
     axis=2, title='('+string(xx, f=fmt)+', '$
     +string(yy, f=fmt)+', '$
-    +string(zz, f=fmt)+')', rgb_table=33, $
-    min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
+    +string(zz, f=fmt)+') = '+string((*vol)[xx, yy, zz], f='(e10.3)'), $
+    rgb_table=33, min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='X pix', ytitle='Y pix', $
     xr=xr, yr=yr, _extra=extra)
   p11=plot([0, sz[1]-1], replicate(yy, 2), '--2', /over, color='gray')

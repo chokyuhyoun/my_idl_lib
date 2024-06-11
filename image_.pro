@@ -16,6 +16,8 @@ function image_, img, x, y, xr=xr, yr=yr, high_res=high_res, over=over, _extra=e
       y = findgen(sz[2])
     end      
     3 : begin
+      if x eq !null then x = findgen(sz[1])
+      if y eq !null then y = findgen(sz[2])
       dx = x[1]-x[0]
       dy = y[1]-y[0]
     end
@@ -39,7 +41,7 @@ function image_, img, x, y, xr=xr, yr=yr, high_res=high_res, over=over, _extra=e
   endif
     if total(strmatch(tag_names(extra), 'axis', /fold_case)) eq 0 then $
       axis = 2
-    if total(strmatch(tag_names(extra), 'pos*', /fold_case)) eq 0 and $
+    if total(strmatch(tag_names(extra), 'pos*', /fold_case)) eq 0 or $
        total(strmatch(tag_names(extra), 'lay*', /fold_case)) eq 0 then $
       position = [0.15, 0.15, 0.9, 0.9]
     if total(strmatch(tag_names(extra), 'font_size', /fold_case)) eq 0 then $

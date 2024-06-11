@@ -67,7 +67,8 @@ function volume_explorer_move, window, $
 end
 
 function show3d, vol1, min=min, max=max, ratio=ratio, $
-  xr=xr, yr=yr, zr=zr, box_sz=box_sz, im1=im1, im2=im2, im3=im3, _extra=extra
+  xr=xr, yr=yr, zr=zr, xp=xp, yp=yp, zp=zp, $
+  box_sz=box_sz, im1=im1, im2=im2, im3=im3, _extra=extra
 
 ;  on_error, 1
   vol=ptr_new(reform(vol1))
@@ -76,6 +77,10 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   if n_elements(max) eq 0 then max=max(*vol, /nan)
   if n_elements(ratio) eq 0 then ratio=0
   if n_elements(box_sz) eq 0 then box_sz=0.4
+  if n_elements(xp) eq 0 then xp = !null
+  if n_elements(yp) eq 0 then yp = !null
+  if n_elements(zp) eq 0 then zp = !null
+  
   sz=size(*vol)
   xx=round(0.5*sz[1])
   yy=round(0.5*sz[2])
@@ -89,7 +94,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   pos2 = [xi+box_sz+0.1, yi, xf, yi+box_sz]
   pos3 = [xi, yi+box_sz+0.1, xi+box_sz, yf]
   w = window(dim=[8d2, 8d2], loc=[900, 0], window_title='Volume Explorer')
-  im1 = image_kh(reform((*vol)[*, *, zz]), $
+  im1 = image_(reform((*vol)[*, *, zz]), xp, yp, $
     pos=pos1, /current, font_size=11, $
     axis=2, title='('+string(xx, f=fmt)+', '$
     +string(yy, f=fmt)+', '$
@@ -100,7 +105,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   p11=plot([0, sz[1]-1], replicate(yy, 2), '--2', /over, color='gray')
   p12=plot(replicate(xx, 2), [0, sz[2]-1], '--2', /over, color='gray')
 
-  im2=image_kh(transpose(reform((*vol)[xx, *, *])), $
+  im2=image_(transpose(reform((*vol)[xx, *, *])), yp, zp, $
     pos=pos2, /current, font_size=11, $
     axis=2, title='X = '+string(xx, f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
@@ -109,7 +114,7 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   p21=plot(replicate(zz, 2), [0, sz[2]-1], '--2', /over, color='gray')
   p22=plot([0, sz[3]-1], replicate(yy, 2), '--2', /over, color='gray')
 
-  im3=image_kh(reform((*vol)[*, yy, *]), $
+  im3=image_(reform((*vol)[*, yy, *]), xp, zp, $
     pos=pos3, /current, font_size=11, $
     axis=2, title='Y = '+string(yy, f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $

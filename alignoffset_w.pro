@@ -22,7 +22,8 @@
 ;      1999 May,   J. Chae
 ;      2004 Decemebr, J. Chae: Suntract mean values and apply the window function before calculating correlation
 ;-
-function alignoffset_w, image, reference, cor, win=win
+function alignoffset_w, image, reference, cor, $
+                        win=win, limx=limx, limy=limy, after_shift=after_shift
                                    ;  Check compatibility
 
 si = size(image)
@@ -65,6 +66,16 @@ endif else window = win
 ;window=1.
 
 cor = float(fft(fft(image1*window, 1)*fft(reference1*window, -1), -1))
+if n_elements(limx) eq 2 then begin
+  cor1 = shift(cor, -limx[0], 0)
+  cor1[-limx[0]+limx[1]:*, *] = 0.
+  cor = shift(cor1, limx[0], 0) 
+endif
+if n_elements(limy) eq 2 then begin
+  cor1 = shift(cor, 0, -limy[0])
+  cor1[*, -limy[0]+limy[1]:*] = 0.
+  cor = shift(cor1, 0, -limy[0])
+endif
 
 tmp = max(cor, s)
 x0 = s(0) mod nx  & x0 = x0 - nx*(x0 gt nx/2)
@@ -84,6 +95,7 @@ j=replicate(1., si(1))#findgen(si(2))+y
 w=i ge 0 and i le si(1)-1 and j ge 0 and j le si(2)-1.
 cor = total(image1*reference1*w)/sqrt(total(image1^2*w)*total(reference1^2*w))
 endif
+if n_elements(after_shift) ne 0 then after_shift = shift_sub(image, -x, -y)
 return, [float(x)*si(1)/nx, float(y)*si(2)/ny]
 end
 ;\end{verbatim}

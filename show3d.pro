@@ -55,12 +55,12 @@ function volume_explorer_move, window, $
   k.im3.rgb_table = k.im1.rgb_table
   k.im3.title = 'Y ='+string(k.yp[k.yy], f=fmt)
 
-  k.p11.setdata, k.xp[[0, sz[1]-1]], replicate(k.yp[k.yy], 2)
-  k.p12.setdata, replicate(k.xp[k.xx], 2), k.yp[[0, sz[2]-1]]
-  k.p21.setdata, replicate(k.zp[k.zz], 2), k.yp[[0, sz[2]-1]]
-  k.p22.setdata, k.zp[[0, sz[3]-1]], replicate(k.yp[k.yy], 2)
-  k.p31.setdata, k.xp[[0, sz[1]-1]], replicate(k.zp[k.zz], 2)
-  k.p32.setdata, replicate(k.xp[k.xx], 2), k.zp[[0, sz[3]-1]]
+  k.p11.setdata, k.im1.xr, replicate(k.yp[k.yy], 2)
+  k.p12.setdata, replicate(k.xp[k.xx], 2), k.im1.yr
+  k.p21.setdata, replicate(k.zp[k.zz], 2), k.im2.yr
+  k.p22.setdata, k.im2.xr, replicate(k.yp[k.yy], 2)
+  k.p31.setdata, k.im3.xr, replicate(k.zp[k.zz], 2)
+  k.p32.setdata, replicate(k.xp[k.xx], 2), k.im3.yr
   cross_hair = [k.p11, k.p12, k.p21, k.p22, k.p31, k.p32]
   for ii=0, n_elements(cross_hair)-1 do cross_hair[ii].order, /bring_to_front
   
@@ -100,33 +100,33 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   pos3 = [xi, yi+box_sz+0.1, xi+box_sz, yf]
   w = window(dim=[8d2, 8d2], loc=[900, 0], window_title='Volume Explorer')
   im1 = image_(reform((*vol)[*, *, zz]), xp, yp, $
-    pos=pos1, /current, font_size=11, $
+    pos=pos1, /current, font_size=11, /no_cb, $
     axis=2, title='('+string(xp[xx], f=fmt)+',  '$
     +string(yp[yy], f=fmt)+',  '$
     +string(zp[zz], f=fmt)+') = '+string((*vol)[xx, yy, zz], f='(e10.3)'), $
     rgb_table=33, min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='X', ytitle='Y', xminor=4, yminor=4, $
     xr=xr, yr=yr, _extra=extra)
-  p11=plot(xp[[0, sz[1]-1]], replicate(yp[yy], 2), '--2', /over, color='gray')
-  p12=plot(replicate(xp[xx], 2), yp[[0, sz[2]-1]], '--2', /over, color='gray')
+  p11=plot(im1.xr, replicate(yp[yy], 2), '--2', /over, color='gray')
+  p12=plot(replicate(xp[xx], 2), im1.yr, '--2', /over, color='gray')
 
   im2=image_(transpose(reform((*vol)[xx, *, *])), zp, yp, $
-    pos=pos2, /current, font_size=11, $
+    pos=pos2, /current, font_size=11, /no_cb, $
     axis=2, title='X = '+string(xp[xx], f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='Z', ytitle='Y', xminor=4, yminor=4, $
     xr=zr, yr=yr, _extra=extra)
-  p21=plot(replicate(zp[zz], 2), yp[[0, sz[2]-1]], '--2', /over, color='gray')
-  p22=plot(zp[[0, sz[3]-1]], replicate(yp[yy], 2), '--2', /over, color='gray')
+  p21=plot(replicate(zp[zz], 2), im2.yr, '--2', /over, color='gray')
+  p22=plot(im2.xr, replicate(yp[yy], 2), '--2', /over, color='gray')
 
   im3=image_(reform((*vol)[*, yy, *]), xp, zp, $
-    pos=pos3, /current, font_size=11, $
+    pos=pos3, /current, font_size=11, /no_cb, $
     axis=2, title='Y = '+string(yp[yy], f=fmt), rgb_table=33, $
     min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
     xtitle='X', ytitle='Z', xminor=4, yminor=4, $
     xr=xr, yr=zr, _extra=extra)
-  p31=plot(xp[[0, sz[1]-1]], replicate(zp[zz], 2), '--2', /over, color='gray')
-  p32=plot(replicate(xp[xx], 2), zp[[0, sz[3]-1]], '--2', /over, color='gray')
+  p31=plot(im3.xr, replicate(zp[zz], 2), '--2', /over, color='gray')
+  p32=plot(replicate(xp[xx], 2), im3.yr, '--2', /over, color='gray')
   cb3 = colorbar(target=im3, pos=[1, 0, 1.03, 1], /relative, $
     orient=1, textpos=1, ticklen=0.5, subticklen=0.5, $
     /border, thick=2, minor=4)

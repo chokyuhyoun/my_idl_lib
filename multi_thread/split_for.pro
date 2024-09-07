@@ -138,8 +138,8 @@ endif else begin
         nloop = fin_arr[i]-start_arr[i]+1
         signal = round(nloop*percent_unit*1d-2*(dindgen(1d2/percent_unit)+1)) + start_arr[i] - 1
         printf, lun, 'signal = ['+strjoin(signal, ',')+']'
-        printf, lun, 'percent_str = string((findgen(n_elements(signal))+1)*1d2/n_elements(signal), f="(i4)")+" % |"'
-        printf, lun, 'prog0 = replicate("       |", '+rstring(nsplit)+')'
+        printf, lun, 'percent_str = string((findgen(n_elements(signal))+1)*1d2/n_elements(signal), f="(i3)")+"%|"'
+        printf, lun, 'prog0 = replicate("    |", '+rstring(nsplit)+')'
         printf, lun, 'ii__ = 0' ; for the percentage
 
         if n_elements(before_loop_commands) NE 0 then $
@@ -223,7 +223,7 @@ if keyword_set(wait_interval) then wait, wait_interval
             if fins EQ nsplit then alldone=1
         endwhile
         if keyword_set(verbose) then splog, 'All threads complete'
-        
+;        stop
 ;----------------------------------------------------
 ;now we get our outputs out
         if n_elements(outvar) NE 0 then begin
@@ -236,27 +236,15 @@ if keyword_set(wait_interval) then wait, wait_interval
                       if i eq 0 then begin
                         dum = execute('dummy = obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
                       endif else begin
-                        dum = execute('dummy += obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
+                        dum = execute('dummy = [dummy, obridge['+rstring(i)+']->getvar("'+outvar[j]+'")]')
                       endelse
                     endelse
-                    ;use scopevarfetch with level=0 to make variables with the string names... with
-;                      (scope_varfetch(outvar[j]+rstring(i), level=-1+levoff,/enter))=$
-;                         obridge[i]->getvar(outvar[j])
                 endfor
                 if ~no_merge then begin
                   (scope_varfetch(outvar[j], level=-1+levoff, /enter)) = dummy 
                 endif
             endfor
         endif
-        
-;        if ~no_merge then begin
-;          for j=0, n_elements(outvar)-1 do begin
-;            dum = execute(outvar[j]+' = !null')
-;            for i=0, nsplit-1 do $
-;              dum = execute(outvar[j]+' = [['+outvar[j]+'], ['+outvar[j]+rstring(i)+']]')        
-;            dum = execute('(scope_varfetch(outvar[j], level=-1+levoff, /enter)) = 0 + '+outvar[j])
-;          endfor
-;        endif
 ;stop
 ;----------------------------------------------------
 ;now we delete our temp batch files

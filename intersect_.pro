@@ -6,6 +6,7 @@ function intersect_, x, y
   zz = z[sort(z)]
   d = zz - shift(zz, 1)
   w = where(d eq 0, count, /null)
+;  stop
   if count eq 0 then return, !null
-  return, z[w]
+  return, zz[w]
 end

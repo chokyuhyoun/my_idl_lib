@@ -19,7 +19,7 @@
 ;
 ;               Default is dz=[1, 1] (linear inrement)          
 ;                     
-;         kDs : increment value of the arc length along the field       
+;         Ds : increment value of the arc length along the field       
 ;              lines( default=min(Dx, Dy, Dz))       
 ;              if Ds is negative, then the integration is done       
 ;              in the direction opposite to magnetic field.       

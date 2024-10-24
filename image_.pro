@@ -67,10 +67,10 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
     im = image(img1, x1, y1, xr=xr, yr=yr, over=over, loc=[1000, 0], $
                _extra=extra)
     if n_elements(over) eq 0 and no_cb ne 1 and $
-       n_elements(where(finite(img1), /null)) then begin
+       n_elements(where(finite(img1), /null)) ne 0 then begin
       cb = colorbar(target=im, /normal, orientation=1, border=1, textpos=1, $
                     pos=im.pos[[2, 1, 2, 3]]+[0.01, 0, 0.03, 0])
-    endif           
+    endif
   endelse
   if im.xticklen ne im.yticklen then begin
     im.xticklen = im.xticklen < im.yticklen

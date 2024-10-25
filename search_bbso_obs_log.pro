@@ -1,9 +1,11 @@
-function search_bbso_obs_log, word, start=start
-  if n_elements(start) eq 0 then start = 2010  
-  caldat, systime(/jul), m0, d0, y0
-  date = []
-  if 1 then begin
-    for yr0=start, y0 do begin
+function search_bbso_obs_log, word, start_yr=start_yr, end_yr=end_yr
+  if n_elements(start_yr) eq 0 then start_yr = 2010  
+  if n_elements(end_yr) eq 0 then caldat, systime(/jul), m0, d0, end_yr
+  url_list = []
+  url2=obj_new('idlneturl')
+  url2->setproperty, url_scheme='http'
+  url2->setproperty, url_host='bbso.njit.edu/'
+    for yr0=start_yr, end_yr do begin
       print, yr0
       for mm0=1, 12 do begin
         for dd0=1, 31 do begin
@@ -15,25 +17,19 @@ function search_bbso_obs_log, word, start=start
   ;        log=webget(url)
           catch, errorStatus
           if (errorStatus ne 0) then continue
-          url2=obj_new('idlneturl')
-          url2->setproperty, url_scheme='http'
-          url2->setproperty, url_host='bbso.njit.edu/'
           url2->setproperty, url_path='pub/archive/'+yr+'/'+mm+'/'+dd+'/bbso_logs_'+yr+mm+dd+'.txt'
           log = url2->get(/string_array)
           pos=where(strmatch(log, '*'+word+'*', /fold_case), n, /null)
-;          stop
           if n ne 0 then begin
-            date = [date, url]
+            url_list = [url_list, url]
             print, url
           endif
         endfor
       endfor
     endfor
-  ;  save, seeing, iday, fday, cloud, filename='seeing.sav'
-  endif
-;  print, date
-  return, date
+  obj_destroy, url2
+  return, url_list
 end
 
-dum = search_bbso_obs_log('CYRA')
+dum = search_bbso_obs_log('CYRA', start_yr=2010)
 end

@@ -1,7 +1,7 @@
 function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
                   over=over, cb=cb, _extra=extra
 ;  on_error, 2
-
+  if n_elements(img) eq 0 then return, image(/test)
   img = reform(img)
   sz = size(img)
   case n_params() of
@@ -45,7 +45,7 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
   if total(strmatch(tag_names(extra), 'pos*', /fold_case)) eq 0 and $
      total(strmatch(tag_names(extra), 'lay*', /fold_case)) eq 0 and $
      (n_elements(over) eq 0) then $
-    extra = create_struct('position', [0.15, 0.15, 0.85, 0.9], extra)
+    extra = create_struct('position', [0.2, 0.2, 0.8, 0.8], extra)
 ;    stop
   if total(strmatch(tag_names(extra), 'font_s*', /fold_case)) eq 0 then $
     extra = create_struct('font_size', 13, extra)
@@ -69,7 +69,9 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
     if n_elements(over) eq 0 and no_cb ne 1 and $
        n_elements(where(finite(img1), /null)) ne 0 then begin
       cb = colorbar(target=im, /normal, orientation=1, border=1, textpos=1, $
-                    pos=im.pos[[2, 1, 2, 3]]+[0.01, 0, 0.03, 0])
+                    pos=im.pos[[2, 1, 2, 3]]+[0.01, 0, 0.03, 0], $
+                    font_size=10)
+      im.axes[3].ticklen = 0
     endif
   endelse
   if im.xticklen ne im.yticklen then begin

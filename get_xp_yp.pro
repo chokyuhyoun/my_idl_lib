@@ -8,9 +8,11 @@ pro get_xp_yp, index, xp, yp, xxp, yyp, data=data
      xp = (findgen(sz[1]) - 0.5*(sz[1] - 1))*index.dx + index.xc
      yp = (findgen(sz[2]) - 0.5*(sz[2] - 1))*index.dy + index.yc
   endif else begin
-    if total(tag_names(index) eq 'crota2') then begin
+    if total(tag_names(index) eq 'CROTA2') then begin
       if abs(index.crota2 - 180.) lt 1 then begin
-        data = rotate(temporary(data), 2)
+        if n_elements(data) eq 0 then begin
+          print, "get_xp_yp: You'd better get the rotated data."
+        endif else data = rotate(temporary(data), 2)
         index.crpix1 = index.naxis1 - index.crpix1 + 1
         index.crpix2 = index.naxis2 - index.crpix2 + 1
         index.crota2 = 0.

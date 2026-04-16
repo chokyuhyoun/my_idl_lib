@@ -44,7 +44,7 @@
 pro b_line, bx, by, bz,r0, r, dx=dx, dy=dy,dz=dz, ds=ds, rev=rev, length=length      
        
 nx = n_elements(bx(*,0,0))       
-ny = n_elements(bx(0,*,0))       
+ny = n_elements(by(0,*,0))       
 nz = n_elements(bz(0,0,*))       
    
 if n_elements(dx) eq 0 then dx=1.       

@@ -11,7 +11,7 @@ pro get_xp_yp, index, xp, yp, xxp, yyp, data=data
     if total(tag_names(index) eq 'CROTA2') then begin
       if abs(index.crota2 - 180.) lt 1 then begin
         if n_elements(data) eq 0 then begin
-          print, "get_xp_yp: You'd better get the rotated data."
+          print, "get_xp_yp: You'd better to get a rotated HMI data."
         endif else data = rotate(temporary(data), 2)
         index.crpix1 = index.naxis1 - index.crpix1 + 1
         index.crpix2 = index.naxis2 - index.crpix2 + 1

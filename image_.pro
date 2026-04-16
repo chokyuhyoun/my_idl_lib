@@ -69,7 +69,7 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
     if n_elements(over) eq 0 and no_cb ne 1 and $
        n_elements(where(finite(img1), /null)) ne 0 then begin
       cb = colorbar(target=im, /normal, orientation=1, border=1, textpos=1, $
-                    pos=im.pos[[2, 1, 2, 3]]+[0.01, 0, 0.03, 0], $
+                    pos=im.pos[[2, 1, 2, 3]]+[0.01, 0, 0.02, 0], $
                     font_size=10)
       im.axes[3].ticklen = 0
     endif

@@ -107,6 +107,7 @@ while nreal ne 0 do begin
   r1=r2       
   b1=b2     
   iter2=0     
+
   repeat begin       
     r2_0 =r2       
     r2=r1+(b1+b2)*0.5*ds

@@ -137,17 +137,17 @@ endif else begin
         f_str = rstring(fin_arr[i])
         nloop = fin_arr[i]-start_arr[i]+1
         signal = round(nloop*percent_unit*1d-2*(dindgen(1d2/percent_unit)+1)) + start_arr[i] - 1
-        printf, lun, 'signal = ['+strjoin(signal, ',')+']'
+        printf, lun, 'signal = ['+strjoin(string(signal, f='(i0)'), ',')+']'
         printf, lun, 'percent_str = string((findgen(n_elements(signal))+1)*1d2/n_elements(signal), f="(i3)")+"%|"'
         printf, lun, 'prog0 = replicate("    |", '+rstring(nsplit)+')'
         printf, lun, 'ii__ = 0' ; for the percentage
-
+        
         if n_elements(before_loop_commands) NE 0 then $
           for j=0, n_elements(before_loop_commands)-1 do $
             printf, lun, before_loop_commands[j]
 
         printf, lun, 'resolve_routine, "splog"'
-        printf, lun, 'for '+ctvariable_name+'='+i_str+', '+f_str+' do begin &$'
+        printf, lun, 'for '+ctvariable_name+'='+i_str+'L, '+f_str+'L do begin &$'
         for j=0, n_elements(commands)-1 do printf, lun, '  '+commands[j]+' &$'
         if percent_unit ne 0 then begin
           printf, lun, '  if '+ctvariable_name+' eq signal[ii__] then begin  &$'
@@ -236,7 +236,7 @@ if keyword_set(wait_interval) then wait, wait_interval
                       if i eq 0 then begin
                         dum = execute('dummy = obridge['+rstring(i)+']->getvar("'+outvar[j]+'")')
                       endif else begin
-                        dum = execute('dummy = [dummy, obridge['+rstring(i)+']->getvar("'+outvar[j]+'")]')
+                        dum = execute('dummy = [[dummy], [obridge['+rstring(i)+']->getvar("'+outvar[j]+'")]]')
                       endelse
                     endelse
                 endfor
@@ -298,5 +298,5 @@ if keyword_set(wait_interval) then wait, wait_interval
         free_lun, lun3
     endif
 endelse
-print, 'It took '+ string((systime(/sec) - t0)/6d1, f='(f5.1)')+' mins'
+print, 'It tooks '+ string((systime(/sec) - t0)/6d1, f='(f5.1)')+' mins'
 end

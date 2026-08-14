@@ -8,6 +8,7 @@ pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun
   dslit = fxpar(h1, 'cdelt2')
   ext_ind = fxpar(h, 'nwin')+1
   sat_rot = fxpar(h, 'sat_rot')*!dtor
+  sat_rot = (abs(sat_rot) lt 1e-2) ? 0. : sat_rot 
   aux_h = headfits(raster_file, ext=ext_ind)
   aux_info = readfits(raster_file, ext=ext_ind, /sil)
   xcenix = reform(aux_info[fxpar(aux_h, 'xcenix'), *])
@@ -17,4 +18,5 @@ pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun
   xpos = xpos0*cos(sat_rot) + ypos0*sin(sat_rot) + rebin(xcenix, nstep, nslit)
   ypos = -xpos0*sin(sat_rot) + ypos0*cos(sat_rot) + rebin(ycenix, nstep, nslit)
   r_sun = 6.957d8/fxpar(h, 'dsun_obs')*180d0/!dpi*3600d0 ; in arcsec
+;  stop
 end

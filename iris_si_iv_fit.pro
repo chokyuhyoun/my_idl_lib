@@ -1,53 +1,53 @@
-function gaussian_, x, p
-  return, p[0]*exp(-0.5*((x-p[1])/p[2])^2.) + p[3]
-end
-
-function get_th_wid, wave, a_mass, logt, $
-                     fwhm=fwhm, one_over_e=one_over_e, gaussian_sigma=gaussian_sigma
-;  k_b = 1.3806e-16 ;erg/K
-;  c = 2.9979e10 ;cm/s
-;  m_u = 1.6605d-24 ;g
-;  gaussian_sigma_factor = 1 (default)
-;  k_b/c^2./m_u = 9.251d-14
-;  in angstrom
-  if ~keyword_set(fwhm) then fwhm = 0
-  if ~keyword_set(one_over_e) then one_over_e = 0
-  
-  th_wid = 9.251d-14*(10.^logt)*wave^2./a_mass
-  th_wid = sqrt(th_wid)
-  factor = one_over_e ? sqrt(2) : (fwhm ? 2.*sqrt(2.*alog(2)) : 1)
-  th_wid *= factor
-  return,  th_wid
-end
-
-function gaussian_fit_, wv, specp, si_cen=si_cen, w_th_si=w_th_si, w_inst=w_inst, init=init, st=st
-  fwhm_to_sig = 0.42466 ; 1./(2.*sqrt(2.*alog(2))) ; FWHM * FWHM_fac = Gaussian sigma
-  if n_elements(si_cen) eq 0 then si_cen = 1402.77d0
-  if n_elements(w_th_si) eq 0 then begin
-    w_th_si = get_th_wid(si_cen, 28.0855, 4.9); gaussian sigma
-    ;; ~ 0.053 angstrom in FWHM (https://iris.lmsal.com/itn38/diagnostics.html --> 0.05)
-  endif
-
-  if n_elements(w_inst) eq 0 then w_inst = 0.026*fwhm_to_sig ; in angstrom
-
-  min_width = sqrt(w_inst^2. + w_th_si^2.)
-  if n_elements(init) eq 0 then init0 = [1., si_cen, min_width, 0.] $
-  else init0 = init
-
-  lims = {value:0., fixed:0, limited:[0, 0], limits:[0., 0.]}
-  lims = replicate(lims, n_elements(init0))
-  lims[0].limited[0] = 1 & lims[0].limits[0] = 0d                        ; amplitude
-  lims[1].limited[*] = 1 & lims[1].limits = si_cen+[-1, 1]*0.5         ; central wavelength
-  lims[2].limited[*] = 1 & lims[2].limits = [min_width, 0.5]             ; width
-
-  err = sqrt(specp>1e-2)
-  res = mpfitfun('gaussian_', wv, specp, err, init0, $
-    parinfo=lims, quiet=1, weights=1d, $/specp, $
-    maxiter=400, status=st, ftol=1d-9, /nan)
-  chisq = total((specp - gaussian_(res))^2./err^2.)/(n_elements(wv) - n_elements(init0))
-  res = [res, chisq]
-  return, res
-end
+;function gaussian_, x, p
+;  return, p[0]*exp(-0.5*((x-p[1])/p[2])^2.) + p[3]
+;end
+;
+;function get_th_wid, wave, a_mass, logt, $
+;                     fwhm=fwhm, one_over_e=one_over_e, gaussian_sigma=gaussian_sigma
+;;  k_b = 1.3806e-16 ;erg/K
+;;  c = 2.9979e10 ;cm/s
+;;  m_u = 1.6605d-24 ;g
+;;  gaussian_sigma_factor = 1 (default)
+;;  k_b/c^2./m_u = 9.251d-14
+;;  in angstrom
+;  if ~keyword_set(fwhm) then fwhm = 0
+;  if ~keyword_set(one_over_e) then one_over_e = 0
+;  
+;  th_wid = 9.251d-14*(10.^logt)*wave^2./a_mass
+;  th_wid = sqrt(th_wid)
+;  factor = one_over_e ? sqrt(2) : (fwhm ? 2.*sqrt(2.*alog(2)) : 1)
+;  th_wid *= factor
+;  return,  th_wid
+;end
+;
+;function gaussian_fit_, wv, specp, si_cen=si_cen, w_th_si=w_th_si, w_inst=w_inst, init=init, st=st
+;  fwhm_to_sig = 0.42466 ; 1./(2.*sqrt(2.*alog(2))) ; FWHM * FWHM_fac = Gaussian sigma
+;  if n_elements(si_cen) eq 0 then si_cen = 1402.77d0
+;  if n_elements(w_th_si) eq 0 then begin
+;    w_th_si = get_th_wid(si_cen, 28.0855, 4.9); gaussian sigma
+;    ;; ~ 0.053 angstrom in FWHM (https://iris.lmsal.com/itn38/diagnostics.html --> 0.05)
+;  endif
+;
+;  if n_elements(w_inst) eq 0 then w_inst = 0.026*fwhm_to_sig ; in angstrom
+;
+;  min_width = sqrt(w_inst^2. + w_th_si^2.)
+;  if n_elements(init) eq 0 then init0 = [1., si_cen, min_width, 0.] $
+;  else init0 = init
+;
+;  lims = {value:0., fixed:0, limited:[0, 0], limits:[0., 0.]}
+;  lims = replicate(lims, n_elements(init0))
+;  lims[0].limited[0] = 1 & lims[0].limits[0] = 0d                        ; amplitude
+;  lims[1].limited[*] = 1 & lims[1].limits = si_cen+[-1, 1]*0.5         ; central wavelength
+;  lims[2].limited[*] = 1 & lims[2].limits = [min_width, 0.5]             ; width
+;
+;  err = sqrt(specp>1e-2)
+;  res = mpfitfun('gaussian_', wv, specp, err, init0, $
+;    parinfo=lims, quiet=1, weights=1d, $/specp, $
+;    maxiter=400, status=st, ftol=1d-9, /nan)
+;  chisq = total((specp - gaussian_(res))^2./err^2.)/(n_elements(wv) - n_elements(init0))
+;  res = [res, chisq]
+;  return, res
+;end
 
 
 function iris_Si_IV_fit, raster_file, si_cen=si_cen
@@ -98,7 +98,7 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
 ;  fit_res = fltarr(n_xpos, n_ypos, 4)
   spec0 = dd->getvar(si_id, /load) ; [wave, y, x]
   spectra = spec0[eff_wv, *, where(exp_time0 ne 0)]*flux_per_dn/exp_time_arr
-  spectra[where(spectra le 0)] = 0
+;  spectra[where(spectra le 0)] = 0
   spec_max = reform(max(spectra, dim=1))
   spec_max_arr = rebin(reform(spec_max, 1, n_ypos, n_xpos), $
     n_wv, n_ypos, n_xpos)
@@ -107,7 +107,7 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
   n_cpu = !cpu.HW_NCPU-1
   if 1 then begin
     command = [$
-      'res0 = iris_gaussian_fit_(wv, nor_spec[*, i], $', $
+      'res0 = iris_gaussian_fit(wv, nor_spec[*, i], $', $
       'si_cen=si_cen, w_th_si=w_th_si0, w_inst=w_inst0, st=st)', $ ;;amp0, cen0, wid0, lev0,
       'res = [[res], [res0]]']
     split_for, 0, n_xpos*n_ypos-1, command=command, $ ; fitting parameters = 1st dimension.

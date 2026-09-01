@@ -1,4 +1,4 @@
-pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun
+pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun, time=time
   ;; xpos, ypos = [nstep, nslit] in arcsec
   h = headfits(raster_file)
   h1 = headfits(raster_file, ext=1)
@@ -6,6 +6,7 @@ pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun
   nslit = fxpar(h1, 'naxis2')
   dstep = fxpar(h1, 'cdelt3')
   dslit = fxpar(h1, 'cdelt2')
+  date_obs = fxpar(h, 'date_obs')
   ext_ind = fxpar(h, 'nwin')+1
   sat_rot = fxpar(h, 'sat_rot')*!dtor
   sat_rot = (abs(sat_rot) lt 1e-2) ? 0. : sat_rot 
@@ -13,6 +14,7 @@ pro get_xp_yp_iris_raster, raster_file, xpos, ypos, r_sun=r_sun
   aux_info = readfits(raster_file, ext=ext_ind, /sil)
   xcenix = reform(aux_info[fxpar(aux_h, 'xcenix'), *])
   ycenix = reform(aux_info[fxpar(aux_h, 'ycenix'), *])
+  time = anytim(reform(aux_info[fxpar(aux_h, 'time'), *]) + anytim(date_obs), /ccsds)
   xpos0 = fltarr(nstep, nslit)
   ypos0 = rebin(transpose((findgen(nslit) - 0.5*(nslit-1.))*dslit), nstep, nslit)
   xpos = xpos0*cos(sat_rot) + ypos0*sin(sat_rot) + rebin(xcenix, nstep, nslit)

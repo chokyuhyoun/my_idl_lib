@@ -30,8 +30,14 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
     3 : begin
       x = (x0 eq !null) ? findgen(sz[1]) : x0
       y = (y0 eq !null) ? findgen(sz[2]) : y0
-      dx = x[1]-x[0]
-      dy = y[1]-y[0]
+      if ((size(x))[0] eq 1) and ((size(y))[0] eq 1) then begin
+        dx = x[1]-x[0]
+        dy = y[1]-y[0]
+      endif
+      if ((size(x))[0] eq 2) and ((size(y))[0] eq 2) then begin
+        dx = mean(x[1:*, *] - x[0:-2, *])
+        dy = mean(y[*, 1:*] - y[*, 0:-2])
+      endif
     end
     else : message, 'Check the number of arguments', /continue
   endcase

@@ -96,8 +96,6 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   xf = 0.98
   yf = 0.95
   pos1 = [xi, yi, xi+box_sz, yi+box_sz]
-  pos2 = [xi+box_sz+0.1, yi, xf, yi+box_sz]
-  pos3 = [xi, yi+box_sz+0.1, xi+box_sz, yf]
   w = window(dim=[8d2, 8d2], loc=[900, 0], window_title='Volume Explorer')
   im1 = image_(reform((*vol)[*, *, zz]), xp, yp, $
     pos=pos1, /current, font_size=11, /no_cb, $
@@ -110,19 +108,23 @@ function show3d, vol1, min=min, max=max, ratio=ratio, $
   p11=plot(im1.xr, replicate(yp[yy], 2), '--2', /over, color='gray')
   p12=plot(replicate(xp[xx], 2), im1.yr, '--2', /over, color='gray')
 
+  pos2 = [xi+box_sz+0.1, im1.pos[1], xf, im1.pos[3]] 
+;  pos2 = [xi+box_sz+0.1, yi, xf, yi+box_sz]
+;  pos3 = [xi, yi+box_sz+0.1, xi+box_sz, yf]
   im2=image_(transpose(reform((*vol)[xx, *, *])), zp, yp, $
     pos=pos2, /current, font_size=11, /no_cb, $
     axis=2, title='X = '+string(xp[xx], f=fmt), rgb_table=33, $
-    min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
+    min=min, max=max, xthick=2, ythick=2, $
     xtitle='Z', ytitle='Y', xminor=4, yminor=4, $
     xr=zr, yr=yr, _extra=extra)
   p21=plot(replicate(zp[zz], 2), im2.yr, '--2', /over, color='gray')
   p22=plot(im2.xr, replicate(yp[yy], 2), '--2', /over, color='gray')
 
+  pos3 = [im1.pos[0], yi+box_sz+0.1, im1.pos[2], yf]
   im3=image_(reform((*vol)[*, yy, *]), xp, zp, $
     pos=pos3, /current, font_size=11, /no_cb, $
     axis=2, title='Y = '+string(yp[yy], f=fmt), rgb_table=33, $
-    min=min, max=max, aspect_ratio=ratio, xthick=2, ythick=2, $
+    min=min, max=max, xthick=2, ythick=2, $
     xtitle='X', ytitle='Z', xminor=4, yminor=4, $
     xr=xr, yr=zr, _extra=extra)
   p31=plot(im3.xr, replicate(zp[zz], 2), '--2', /over, color='gray')

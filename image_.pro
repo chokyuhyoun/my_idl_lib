@@ -1,6 +1,7 @@
 function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
                   over=over, cb=cb, _extra=extra
 ;  on_error, 2
+
   if n_elements(img) eq 0 then return, image(/test)
   img1 = reform(img)
   sz = size(img1)
@@ -76,8 +77,9 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
     im = objarr(sz[3])
     im[0] = image(img1[*, *, 0], x1, y1, xr=xr, yr=yr, _extra=extra)
     for i=1, sz[3]-1 do begin
-      im[i] = image(img1[*, *, i], x1, y1, xr=xr, yr=yr, over=im[0])
+      im[i] = image(img1[*, *, i], x1, y1, xr=xr, yr=yr, over=im[0], _extra=extra)
     endfor
+    ng_blink, im
   endif else begin
     im = image(img1, x1, y1, xr=xr, yr=yr, over=over, loc=[1000, 0], $
                _extra=extra)
@@ -88,11 +90,12 @@ function image_, img, x0, y0, xr=xr, yr=yr, high_res=high_res, no_cb=no_cb, $
                     font_size=10)
       im.axes[3].ticklen = 0
     endif
+    if im.xticklen ne im.yticklen then begin
+      im.xticklen = im.xticklen < im.yticklen
+      im.yticklen = im.xticklen
+    endif
   endelse
-  if im.xticklen ne im.yticklen then begin
-    im.xticklen = im.xticklen < im.yticklen
-    im.yticklen = im.xticklen
-  endif
+
   return, im
 end
 

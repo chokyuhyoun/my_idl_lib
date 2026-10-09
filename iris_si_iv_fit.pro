@@ -50,9 +50,10 @@
 ;end
 
 
-function iris_Si_IV_fit, raster_file, si_cen=si_cen
+function iris_Si_IV_fit, raster_file, si_cen=si_cen, rot_corr=rot_corr
 
   if ~keyword_set(si_cen) then si_cen = 1402.77d0
+  if ~keyword_set(rot_corr) then rot_corr = 0
   si_cen_str = string(round(si_cen), f='(i0)')
   
   w_th_si0 = get_th_wid(si_cen, 28.0855, 4.9)  ; in gaussian sigma,  angstrom
@@ -74,7 +75,8 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
   si_id = (where(line_id eq 'Si IV '+ si_cen_str, /null))[0]
   sg_time = dd->ti2tai()
   exp_time0 = dd->getexp(iwin=si_id) ;; array
-  exp_time = exp_time0[where(exp_time0 ne 0)]
+;  exp_time = exp_time0[where(exp_time0 ne 0)]
+  exp_time = exp_time0
   spec_bin = (dd->binning_spectral(si_id))[0]
   spat_bin = (dd->binning_region('FUV'))[0]
   pix_y_size = pix_y_size0*spat_bin
@@ -85,7 +87,33 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
   pix_size=!pi/(180.)*!pi/(180.)*(pix_x_size/3600.)*(pix_y_size/3600.)
   area_sg = resp.area_sg[imin, 0]
   flux_per_dn = en*dn2phot_sg/area_sg/pix_size
-  get_xp_yp_iris_raster, raster_file, xpos, ypos
+  get_xp_yp_iris_raster, raster_file, xpos_, ypos_, time=sg_time
+;  xpos_ = xpos_[where(exp_time0 ne 0), *]
+;  ypos_ = ypos_[where(exp_time0 ne 0), *]
+;  sg_time = sg_time[where(exp_time0 ne 0)]
+  sg_time = anytim(sg_time)
+  t_ref = sg_time[n_elements(sg_time)/2]
+  rel_sg_time = sg_time - t_ref
+  if rot_corr then begin
+    xpos = xpos_*0.
+    ypos = ypos_*0.
+    for i=0, (size(xpos_))[1]-1 do begin
+      int = sg_time[i] - t_ref
+      dum = rot_xy(reform(xpos_[i, *]), reform(ypos_[i, *]), -int)
+      xpos[i, *] = dum[*, 0]
+      ypos[i, *] = dum[*, 1]
+    endfor
+    if n_elements(where(xpos eq -9999., /null)) ne 0 then begin
+      print, 'The FOV is too close to the limb. No solar rotation correction was performed.'
+      rot_corr = 0
+      xpos = xpos_
+      ypos = ypos_
+    endif
+  endif else begin
+    xpos = xpos_
+    ypos = ypos_
+  endelse
+  
   n_xpos = (size(xpos))[1]
   n_ypos = (size(ypos))[2]
   
@@ -97,7 +125,8 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
     n_wv, n_ypos, n_xpos)
 ;  fit_res = fltarr(n_xpos, n_ypos, 4)
   spec0 = dd->getvar(si_id, /load) ; [wave, y, x]
-  spectra = spec0[eff_wv, *, where(exp_time0 ne 0)]*flux_per_dn/exp_time_arr
+  spectra = spec0[eff_wv, *, *]*flux_per_dn/exp_time_arr
+  spectra[*, *, where(exp_time0 eq 0)] = !values.f_nan
 ;  spectra[where(spectra le 0)] = 0
   spec_max = reform(max(spectra, dim=1))
   spec_max_arr = rebin(reform(spec_max, 1, n_ypos, n_xpos), $
@@ -105,6 +134,7 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
   nor_spec = spectra / spec_max_arr
   nor_spec = reform(nor_spec, n_wv, n_xpos*n_ypos)
   n_cpu = !cpu.HW_NCPU-1
+;  stop
   if 1 then begin
     command = [$
       'res0 = iris_gaussian_fit(wv, nor_spec[*, i], $', $
@@ -126,7 +156,9 @@ function iris_Si_IV_fit, raster_file, si_cen=si_cen
   
   res = {amp:amplitude, vel:velocity, nth:nth_width, chisq:chisq, $
     line_id:line_id[si_id], wave_cen:si_cen, xp:xpos, yp:ypos, $
-    w_th:w_th_si0, w_instr:w_inst0, filename:raster_file, header:iris_hdr}
+    w_th:w_th_si0, w_instr:w_inst0, filename:raster_file, header:iris_hdr, $ 
+    t_ref:anytim(t_ref, /ccsds), rot_corr:rot_corr, $
+    spec:spectra, wv:wv, fit_res:fit_res, slit_time:sg_time}
   return, res
 end
 
